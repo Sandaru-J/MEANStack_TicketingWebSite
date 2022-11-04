@@ -2,7 +2,7 @@
 
 
 .evntBg {
-  background: linear-gradient(to right top, #020138, #8edfdc);
+  background: linear-gradient(to right top, #000000, #2a2b2c, #ffffff);
   padding: 60px 0;
   font-family: 'Roboto', sans-serif;
 }
@@ -34,7 +34,7 @@
 .title::after {
   content: '\f005';
   font-family: FontAwesome;
-  color: #dbdbdb;
+  color: #fce300;
   width: 50px;
   height: 20px;
   text-align: center;
@@ -42,9 +42,9 @@
   position: absolute;
   bottom: 10%;
   left: 50%;
-  background: #eee;
+  background:rgba(238, 238, 238, 0);
   transform: translateX(-50%);
-  font-size: 16px;
+  font-size: 20px;
 }
 
 .title p {
