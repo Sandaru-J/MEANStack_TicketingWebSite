@@ -8,13 +8,15 @@ import { HeaderComponent } from './cl_header/header/header.component';
 
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { EvntCrdComponent } from './EventCrd/evnt-crd/evnt-crd.component';
+import { FooterComponent } from './footer/footer/footer.component';
 
 
 @NgModule({
   declarations: [
     AppComponent,
     HeaderComponent,
-    EvntCrdComponent
+    EvntCrdComponent,
+    FooterComponent
   ],
   imports: [
     BrowserModule,
