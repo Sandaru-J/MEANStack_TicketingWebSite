@@ -9,6 +9,7 @@ import { HeaderComponent } from './cl_header/header/header.component';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { EvntCrdComponent } from './EventCrd/evnt-crd/evnt-crd.component';
 import { FooterComponent } from './footer/footer/footer.component';
+import { LoginComponent } from './Admin/Login/login/login.component';
 
 
 @NgModule({
@@ -16,7 +17,8 @@ import { FooterComponent } from './footer/footer/footer.component';
     AppComponent,
     HeaderComponent,
     EvntCrdComponent,
-    FooterComponent
+    FooterComponent,
+    LoginComponent
   ],
   imports: [
     BrowserModule,
