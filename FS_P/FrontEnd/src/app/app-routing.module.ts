@@ -5,7 +5,7 @@ import { FooterComponent } from './footer/footer/footer.component';
 
 const routes: Routes = [
   // {path:'',component:FooterComponent},
-  {path:'event',component:EvntCrdComponent}
+  {path:'event',component:EvntCrdComponent},
 ];
 
 @NgModule({

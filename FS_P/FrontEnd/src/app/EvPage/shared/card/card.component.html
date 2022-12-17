@@ -1,0 +1,22 @@
+<div class="card">
+  <div class="product-image">
+      <img  alt="Denim Jeans">
+      <div class="black-cover">
+          <a class="details-btn">Show Details</a>
+          <button *ngIf="cartComponent" class="details-btn remove" >Remove</button>
+      </div>
+  </div>
+  <div class="product-info">
+      <p class="title"></p>
+      <p class="price">BDT</p>
+  </div>
+  <p class="product-qty">Available Quantity: <span></span></p>
+  <div class="add-cart-action">
+      <button class="add-cart-btn" >Add to Cart</button>
+      <div class="btn-cart-action" *ngIf="product.cartQty">
+        <span class="btn-inc-dec" >-</span>
+        <span class="qty"></span>
+        <span class="btn-inc-dec">+</span>
+      </div>
+  </div>
+</div>
