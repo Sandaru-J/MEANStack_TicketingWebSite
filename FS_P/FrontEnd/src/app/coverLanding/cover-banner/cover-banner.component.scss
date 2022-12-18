@@ -3,5 +3,21 @@
 //  background-size: 100% 100%;
 // }
 .banner{
-  background-size: cover;
+  background-size:cover;
+  display: grid;
+  height: 50%;
+  max-height: 100%;
+  max-width: 100%;
+  min-height: 60vh;
 }
+.img{
+
+}
+// .carousel-item{
+//   display: grid;
+//   height: 600px;
+//   max-height: 100%;
+//   max-width: 100%;
+//   min-height: 60vh;
+// }
+
