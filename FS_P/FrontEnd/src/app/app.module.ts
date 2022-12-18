@@ -7,6 +7,9 @@ import { AppComponent } from './app.component';
 import { HeaderComponent } from './cl_header/header/header.component';
 import { EvntCrdComponent } from './EventCrd/evnt-crd/evnt-crd.component';
 import { CoverBannerComponent } from './coverLanding/cover-banner/cover-banner.component';
+import { FooterComponent } from './footer/footer/footer.component';
+import { LoginComponent } from './Admin/Login/login/login.component';
+
 
 
 @NgModule({
@@ -14,7 +17,9 @@ import { CoverBannerComponent } from './coverLanding/cover-banner/cover-banner.c
     AppComponent,
     HeaderComponent,
     EvntCrdComponent,
-    CoverBannerComponent
+    CoverBannerComponent,
+    FooterComponent,
+    LoginComponent
   ],
   imports: [
     BrowserModule,
