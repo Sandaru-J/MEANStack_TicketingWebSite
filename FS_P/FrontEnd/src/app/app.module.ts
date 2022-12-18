@@ -1,15 +1,15 @@
 import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
-
 import { HeaderComponent } from './cl_header/header/header.component';
-
-import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { EvntCrdComponent } from './EventCrd/evnt-crd/evnt-crd.component';
+import { CoverBannerComponent } from './coverLanding/cover-banner/cover-banner.component';
 import { FooterComponent } from './footer/footer/footer.component';
 import { LoginComponent } from './Admin/Login/login/login.component';
+
 
 
 @NgModule({
@@ -17,13 +17,14 @@ import { LoginComponent } from './Admin/Login/login/login.component';
     AppComponent,
     HeaderComponent,
     EvntCrdComponent,
+    CoverBannerComponent,
     FooterComponent,
     LoginComponent
   ],
   imports: [
     BrowserModule,
     AppRoutingModule,
-    BrowserAnimationsModule
+    BrowserAnimationsModule,
   ],
   providers: [],
   bootstrap: [AppComponent]
