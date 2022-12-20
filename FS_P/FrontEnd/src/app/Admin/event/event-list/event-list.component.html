@@ -1,0 +1,19 @@
+<div class="container">
+  <mat-accordion multi="true">
+    <mat-expansion-panel *ngFor="let event of event">
+      <mat-expansion-panel-header>
+           {{ event.title }}
+         <!-- <mat-panel-description>
+          This is a summary of the content
+        </mat-panel-description> -->
+      </mat-expansion-panel-header>
+       <p>{{ event.date }}</p>
+       <mat-action-row>
+        <a mat-button color="primary" [routerLink]="['/edit',]">Edit</a>
+        <button mat-button color="warn">Delete</button>
+       </mat-action-row>
+    </mat-expansion-panel>
+  </mat-accordion>
+</div>
+
+<p class="info-text mat-body-1" *ngIf="event.length<=0"> No Events added yet</p>
