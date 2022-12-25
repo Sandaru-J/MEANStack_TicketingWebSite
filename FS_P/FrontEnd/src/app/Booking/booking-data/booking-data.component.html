@@ -1,0 +1,73 @@
+<section class="bookingDetails">
+  <div class="container">
+    <div class="row">
+      <mat-vertical-stepper>
+        <mat-step>
+          <form >
+            <ng-template matStepLabel>Select your Ticket</ng-template>
+
+            <mat-form-field>
+              <mat-label>Ticket Price</mat-label>
+              <mat-select>
+                <mat-option>
+                 Vip
+                </mat-option>
+                <mat-option>
+                  Silver
+                 </mat-option>
+              </mat-select>
+            </mat-form-field>
+            <mat-form-field>
+              <input matInput placeholder="No of Ticket">
+            </mat-form-field>
+            <div>
+              <button mat-button matStepperNext>Next</button>
+            </div>
+          </form>
+        </mat-step>
+        <mat-step>
+          <form >
+            <ng-template matStepLabel>Fill out your Details</ng-template>
+            <mat-form-field>
+              <input matInput placeholder="Name">
+            </mat-form-field>
+            <mat-form-field>
+              <input matInput placeholder="NIC/PASSPORT">
+            </mat-form-field>
+            <mat-form-field>
+              <input matInput placeholder="Address">
+            </mat-form-field>
+            <div>
+              <button mat-button matStepperPrevious>Back</button>
+              <button mat-button matStepperNext>Next</button>
+            </div>
+          </form>
+        </mat-step>
+        <mat-step>
+          <ng-template matStepLabel>Fill out your contacts</ng-template>
+            <mat-form-field>
+              <input matInput placeholder="Telephone">
+            </mat-form-field>
+            <mat-form-field>
+              <input matInput placeholder="Email">
+            </mat-form-field>
+            <div>
+              <button mat-button matStepperPrevious>Back</button>
+              <button mat-button matStepperNext>Next</button>
+            </div>
+        </mat-step>
+        <mat-step>
+          <ng-template matStepLabel>Confirmation</ng-template>
+          You are now done.
+          <div>
+            <button mat-button matStepperPrevious>Back</button>
+            <button mat-button>Reset</button>
+            <button mat-button>Proceed to Pay</button>
+          </div>
+        </mat-step>
+      </mat-vertical-stepper>
+
+    </div>
+
+  </div>
+</section>

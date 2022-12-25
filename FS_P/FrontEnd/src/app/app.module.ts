@@ -7,8 +7,12 @@ import { MatButtonModule } from '@angular/material/button';
 import { MatExpansionModule } from '@angular/material/expansion';
 import { MatFormFieldModule} from '@angular/material/form-field'
 import { FormsModule } from  '@angular/forms';
+import { MatIconModule} from '@angular/material/icon';
+import {MatStepperModule} from '@angular/material/stepper';
+import {  MatInputModule } from '@angular/material/input';
 import { HttpClientModule } from '@angular/common/http';
 import { MatProgressSpinnerModule} from '@angular/material/progress-spinner';
+import { MatSelectModule } from '@angular/material/select';
 
 
 import { AppRoutingModule } from './app-routing.module';
@@ -21,7 +25,8 @@ import { LoginComponent } from './Admin/Login/login/login.component';
 import { EventCreateComponent } from './Admin/event/event-create/event-create.component';
 import { AdHeaderComponent } from './Admin/header/header.component';
 import { EventListComponent } from './Admin/event/event-list/event-list.component';
-import {  MatInputModule } from '@angular/material/input';
+import { EvBannerComponent } from './Booking/ev-banner/ev-banner.component';
+import { BookingDataComponent } from './Booking/booking-data/booking-data.component';
 
 
 
@@ -36,6 +41,8 @@ import {  MatInputModule } from '@angular/material/input';
     EventCreateComponent,
     AdHeaderComponent,
     EventListComponent,
+    EvBannerComponent,
+    BookingDataComponent,
   ],
   imports: [
     BrowserModule,
@@ -47,7 +54,10 @@ import {  MatInputModule } from '@angular/material/input';
     MatExpansionModule,
     MatFormFieldModule,
     FormsModule,
-    MatInputModule
+    MatInputModule,
+    MatIconModule,
+    MatStepperModule,
+    MatSelectModule
   ],
   providers: [],
   bootstrap: [AppComponent]
