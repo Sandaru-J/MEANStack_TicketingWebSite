@@ -1,6 +1,7 @@
-export interface event{
+export interface Event{
+  id:string|null;
   title:string;
-  date:String;
+  date:string;
   // organization:string;
   // location:string;
   // capacity:Number;

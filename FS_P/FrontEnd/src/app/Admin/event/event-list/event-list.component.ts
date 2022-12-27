@@ -1,8 +1,7 @@
 import { Component, OnInit,OnDestroy } from '@angular/core';
-import { event } from '../event.models';
+import { Event } from '../event.models';
 import { EventService } from '../event.service';
 import { Subscription } from 'rxjs';
-
 
 @Component({
   selector: 'app-event-list',
@@ -10,16 +9,16 @@ import { Subscription } from 'rxjs';
   styleUrls: ['./event-list.component.scss']
 })
 export class EventListComponent implements OnInit, OnDestroy {
-event: event[]=[];
+events: Event[]=[];
   private eventSub: Subscription = new Subscription;
 
   constructor( public eventService: EventService) { }
 
-  ngOnInit(): void {
-    this.event = this.eventService.getPosts();
-    this.eventSub = this.eventService.getPostUpdateListener()
-      .subscribe((events: event[]) => {
-        this.event = events;
+  ngOnInit() {
+    this.eventService.getEvents();
+    this.eventSub = this.eventService.getEventUpdateListener()
+      .subscribe((events: Event[]) => {
+        this.events = events;
       });
 
   }

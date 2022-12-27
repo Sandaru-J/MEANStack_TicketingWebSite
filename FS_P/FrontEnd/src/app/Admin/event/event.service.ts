@@ -1,25 +1,35 @@
+import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Subject } from 'rxjs';
-import { event } from './event.models';
+import { Event } from './event.models';
 
 @Injectable({providedIn: 'root'})
 export class EventService {
-  private event: event[] = [];
-  private eventUpdated = new Subject<event[]>();
+  private events: Event[] = [];
+  private eventUpdated = new Subject<Event[]>();
 
-  getPosts() {
-    return [...this.event];
+  constructor(private http:HttpClient){}
+
+  getEvents() {
+    //return [...this.event];
+    this.http
+    .get<{message:string,events: Event[]}>(
+      'http://localhost:3000/api/event'
+      )
+    .subscribe((eventData)=>{
+      this.events=eventData.events;
+      this.eventUpdated.next([...this.events]);
+    });
   }
 
-  getPostUpdateListener() {
+  getEventUpdateListener() {
     return this.eventUpdated.asObservable();
   }
 
-  addEvent(title: string, date: string) {
-    const event: event = {title: title, date:date,};
-    this.event.push(event);
-    this.eventUpdated.next([...this.event]);
-    console.log('in service')
-    console.log(date)
+  addEvents(title: string, date: string) {
+    const event: Event = { id:null,title: title, date:date,};
+    this.events.push(event);
+    this.eventUpdated.next([...this.events]);
+
   }
 }

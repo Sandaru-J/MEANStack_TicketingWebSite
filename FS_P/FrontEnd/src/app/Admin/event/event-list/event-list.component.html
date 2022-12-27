@@ -1,6 +1,6 @@
 <div class="container">
   <mat-accordion multi="true">
-    <mat-expansion-panel *ngFor="let event of event">
+    <mat-expansion-panel *ngFor="let event of events">
       <mat-expansion-panel-header>
            {{ event.title }}
          <!-- <mat-panel-description>
@@ -16,4 +16,4 @@
   </mat-accordion>
 </div>
 
-<p class="info-text mat-body-1" *ngIf="event.length<=0"> No Events added yet</p>
+<p class="info-text mat-body-1" *ngIf="events.length<=0"> No Events added yet</p>
