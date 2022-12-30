@@ -22,7 +22,6 @@ export class EventCreateComponent implements OnInit {
     //   date:form.value.date,
     //}
     this.eventService.addEvents(form.value.title, form.value.date);
-    console.log()
     form.resetForm();
   }
 
