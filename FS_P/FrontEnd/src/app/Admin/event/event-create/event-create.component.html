@@ -5,11 +5,11 @@
       <div class="row">
         <div class="col-md-6">
           <mat-form-field>
-        <input matInput type="text" name="title"  #title="ngModel" ngModel required placeholder="Event Title">
+        <input matInput type="text" name="title"  #title="ngModel" [ngModel]="event?.title" required placeholder="Event Title">
         <mat-error *ngIf="title.invalid">Please Enter a post Title</mat-error>
       </mat-form-field>
       <mat-form-field>
-        <input matInput type="text" name="date" #date="ngModel" ngModel required placeholder="Event Date">
+        <input matInput type="text" name="date" #date="ngModel" [ngModel]="event?.date" required placeholder="Event Date">
         <mat-error *ngIf="date.invalid">Please Enter a post Content</mat-error>
       </mat-form-field>
         </div>
@@ -46,7 +46,7 @@
       </mat-form-field>
         </div>
       </div> -->
-      <h2>Ticket classes</h2>
+      <!-- <h2>Ticket classes</h2> -->
       <!-- <div class="row">
         <div class="col-md-4">
           <mat-form-field>

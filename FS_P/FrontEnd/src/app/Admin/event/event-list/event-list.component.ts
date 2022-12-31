@@ -20,7 +20,9 @@ events: Event[]=[];
       .subscribe((events: Event[]) => {
         this.events = events;
       });
-
+  }
+  onDelete(eventID:any){
+    this.eventService.deleteEvent(eventID);
   }
   ngOnDestroy(){
     this.eventSub.unsubscribe();
