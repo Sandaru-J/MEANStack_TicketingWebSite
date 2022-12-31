@@ -9,8 +9,8 @@
       </mat-expansion-panel-header>
        <p>{{ event.date }}</p>
        <mat-action-row>
-        <a mat-button color="primary" [routerLink]="['/edit',]">Edit</a>
-        <button mat-button color="warn">Delete</button>
+        <a mat-button color="primary" [routerLink]="['/edit',event.id]">Edit</a>
+        <button mat-button color="warn" (click)="onDelete(event.id)">Delete</button>
        </mat-action-row>
     </mat-expansion-panel>
   </mat-accordion>
