@@ -8,5 +8,8 @@ textarea,input{
 mat-card{
   margin-top: 1rem;
 }
+input[type='file']{
+  visibility: hidden;
+}
 
 

@@ -4,6 +4,7 @@ import { response } from 'express';
 import { map, Subject } from 'rxjs';
 import { Event } from './event.models';
 import { Router } from "@angular/router";
+import { transition } from '@angular/animations';
 
 @Injectable({providedIn: 'root'})
 export class EventService {
@@ -24,7 +25,14 @@ export class EventService {
             return{
               title:event.title,
               date:event.date,
-              id:event._id
+              organization:event.organization,
+              id:event._id,
+              capacity:event.capacity,
+              location:event.location,
+              category:event.category,
+              TicketC1:event.TicketC1,
+              TicketP1:event.TicketP1,
+              TicketQ1:event.TicketQ1
             }
           })
         }))
@@ -39,11 +47,49 @@ export class EventService {
     return this.eventUpdated.asObservable();
   }
   getEvent(id:string){
-    return{...this.events.find(p=>p.id===id)};
+    // console.log(this.events,id)
+    // return{...this.events.find(p=>p.id===id)};
+   return  this.http
+    .get<{message:string,event: any}>(
+      'http://localhost:3000/api/event/'+id
+      ).pipe(
+        map((eventData)=>{
+
+            return{
+              title:eventData.event.title,
+              date:eventData.event.date,
+              organization:eventData.event.organization,
+              id:eventData.event._id,
+              TicketC1:eventData.event.TicketC1,
+              TicketP1:eventData.event.TicketP1,
+              TicketQ1:eventData.event.TicketQ1
+            }
+
+        }))
+
   }
 
-  addEvents(title: string, date: string) {
-    const event: Event = { id:null,title: title, date:date,};
+  addEvents(title: string,
+            date: string,
+            organization:string,
+            location:string,
+            capacity:number,
+            category:string,
+            TicketC1:string,
+            TicketP1:number,
+            TicketQ1:number) {
+    const event: Event = {
+      id: null,
+      title: title,
+      date: date,
+      organization:organization,
+      location:location,
+      capacity:capacity,
+      category:category,
+      TicketC1:TicketC1,
+      TicketP1:TicketP1,
+      TicketQ1:TicketQ1
+    };
     this.http.post<{message:string,eventId:string}>('http://localhost:3000/api/event',event)
     .subscribe(responseData=>{
       console.log(responseData.message)
@@ -51,23 +97,26 @@ export class EventService {
       event.id=id;
       this.events.push(event);
       this.eventUpdated.next([...this.events]);
-      console.log(event)
+      //console.log(event)
     });
   }
 
-  updateEvent(id:string,title:string,date:string){
-    const event:Event={id:id,title:title,date:date};
-    this.http
-    .put('http://localhost:3000/api/event/'+ id,event)
-    .subscribe(response=>{
-      const updatedEvent=[...this.events];
-      const oldEventIndex=updatedEvent.findIndex(p=>p.id === event.id);
-      updatedEvent[oldEventIndex]=event;
-      this.events=updatedEvent;
-      this.eventUpdated.next([...this.events]);
-      this.router.navigate(['/event-list'])
-    })
-  }
+  // updateEvent(id:string,title:string,date:string){
+  //   const event:Event={
+  //     id: id, title: title, date: date,
+  //     organization: ''
+  //   };
+  //   this.http
+  //   .put('http://localhost:3000/api/event/'+ id,event)
+  //   .subscribe(response=>{
+  //     const updatedEvent=[...this.events];
+  //     const oldEventIndex=updatedEvent.findIndex(p=>p.id === event.id);
+  //     updatedEvent[oldEventIndex]=event;
+  //     this.events=updatedEvent;
+  //     this.eventUpdated.next([...this.events]);
+  //     this.router.navigate(['/'])
+  //   })
+  // }
 
   deleteEvent(eventId:string){
     this.http.delete('http://localhost:3000/api/event/'+ eventId)

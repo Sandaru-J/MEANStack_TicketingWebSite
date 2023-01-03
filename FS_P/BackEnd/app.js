@@ -30,12 +30,18 @@ app.use((req,res,next) =>{
     next();
   });
 app.post('/api/event',(req,res,next)=>{
-
+    console.log(req.body);
     const event = new Event({
         title:req.body.title,
-        date:req.body.date
+        date:req.body.date,
+        organization:req.body.organization,
+        location:req.body.location,
+        capacity:req.body.capacity,
+        category:req.body.category,
+        TicketC1:req.body.TicketC1,
+        TicketP1:req.body.TicketP1,
+        TicketQ1:req.body.TicketQ1
     });
-    console.log(event);
     event.save()
     res.status(201).json({
         message:'Event Addeded Successfully'
@@ -65,7 +71,17 @@ app.get('/api/event',(req,res,next)=>{
         });
     
 });
-
+app.get('/api/event/:id',(req,res,next)=>{
+    Event.findOne({_id:req.params.id})
+        .then(documents=>{
+            console.log(documents);
+            res.status(200).json({
+                message:'Event Refresdhed Sucessfully',
+                event:documents
+            });
+        });
+    
+});
 app.delete('/api/event/:id',(req,res,next)=>{
     Event.deleteOne({_id:req.params.id}).then(result=>{
         console.log(result);
