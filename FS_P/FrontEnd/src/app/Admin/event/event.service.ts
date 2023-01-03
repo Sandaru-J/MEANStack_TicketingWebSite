@@ -32,7 +32,8 @@ export class EventService {
               category:event.category,
               TicketC1:event.TicketC1,
               TicketP1:event.TicketP1,
-              TicketQ1:event.TicketQ1
+              TicketQ1:event.TicketQ1,
+              description:event.description
             }
           })
         }))
@@ -60,9 +61,13 @@ export class EventService {
               date:eventData.event.date,
               organization:eventData.event.organization,
               id:eventData.event._id,
+              capacity:eventData.event.capacity,
+              location:eventData.event.location,
+              category:eventData.event.category,
               TicketC1:eventData.event.TicketC1,
               TicketP1:eventData.event.TicketP1,
-              TicketQ1:eventData.event.TicketQ1
+              TicketQ1:eventData.event.TicketQ1,
+              description:eventData.event.description
             }
 
         }))
@@ -77,7 +82,8 @@ export class EventService {
             category:string,
             TicketC1:string,
             TicketP1:number,
-            TicketQ1:number) {
+            TicketQ1:number,
+            description:string) {
     const event: Event = {
       id: null,
       title: title,
@@ -88,7 +94,8 @@ export class EventService {
       category:category,
       TicketC1:TicketC1,
       TicketP1:TicketP1,
-      TicketQ1:TicketQ1
+      TicketQ1:TicketQ1,
+      description:description
     };
     this.http.post<{message:string,eventId:string}>('http://localhost:3000/api/event',event)
     .subscribe(responseData=>{
@@ -101,22 +108,36 @@ export class EventService {
     });
   }
 
-  // updateEvent(id:string,title:string,date:string){
-  //   const event:Event={
-  //     id: id, title: title, date: date,
-  //     organization: ''
-  //   };
-  //   this.http
-  //   .put('http://localhost:3000/api/event/'+ id,event)
-  //   .subscribe(response=>{
-  //     const updatedEvent=[...this.events];
-  //     const oldEventIndex=updatedEvent.findIndex(p=>p.id === event.id);
-  //     updatedEvent[oldEventIndex]=event;
-  //     this.events=updatedEvent;
-  //     this.eventUpdated.next([...this.events]);
-  //     this.router.navigate(['/'])
-  //   })
-  // }
+  updateEvent(
+              id:string,
+              title:string,
+              date:string,
+              organization:string,
+              location:string,
+              capacity:number,
+              category:string,
+              TicketC1:string,
+              TicketP1:number,
+              TicketQ1:number,
+              description:string){
+    const event:Event={
+      id: id, title: title, date: date,
+      organization: organization,location:location,
+      capacity:capacity,category:category,
+      TicketC1:TicketC1,TicketP1:TicketP1,
+      TicketQ1:TicketQ1,description:description
+    };
+    this.http
+    .put('http://localhost:3000/api/event/'+ id,event)
+    .subscribe(response=>{
+      const updatedEvent=[...this.events];
+      const oldEventIndex=updatedEvent.findIndex(p=>p.id === event.id);
+      updatedEvent[oldEventIndex]=event;
+      this.events=updatedEvent;
+      this.eventUpdated.next([...this.events]);
+      this.router.navigate(['/'])
+    })
+  }
 
   deleteEvent(eventId:string){
     this.http.delete('http://localhost:3000/api/event/'+ eventId)

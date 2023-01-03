@@ -165,13 +165,19 @@
       </div>
       <h2>Event Description</h2>
       <div class="row">
-        <mat-form-field>
+        <!-- <mat-form-field>
           <input matInput type="text" name="title"  required placeholder="Post Title">
           <mat-error>Please Enter a post Title</mat-error>
-        </mat-form-field>
+        </mat-form-field> -->
         <mat-form-field>
-          <textarea matInput rows="4" name="description" required placeholder="Event Description"></textarea>
-          <mat-error>Please Enter a post Title</mat-error>
+          <textarea
+          matInput
+          rows="4"
+          name="description"
+          formControlName="description"
+          required
+          placeholder="Event Description"></textarea>
+          <mat-error *ngIf="eventForm.get('description').invalid">Please Enter a Description</mat-error>
         </mat-form-field>
       </div>
 

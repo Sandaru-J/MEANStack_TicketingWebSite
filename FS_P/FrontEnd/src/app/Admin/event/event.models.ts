@@ -19,5 +19,5 @@ export interface Event{
   // TicketQ2:Number;
   // TicketQ3:Number;
 
-  // description:string;
+  description:string;
 }

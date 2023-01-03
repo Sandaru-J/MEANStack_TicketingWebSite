@@ -39,6 +39,7 @@ export class EventCreateComponent implements OnInit {
       'TicketC1':new FormControl('',{validators:[Validators.required]}),
       'TicketP1':new FormControl('',{validators:[Validators.required]}),
       'TicketQ1':new FormControl('',{validators:[Validators.required]}),
+      'description':new FormControl('',{validators:[Validators.required]})
     });
     this.route.paramMap.subscribe((paramMap:ParamMap)=>{
       if(paramMap.has('eventId')){
@@ -58,6 +59,7 @@ export class EventCreateComponent implements OnInit {
             TicketC1:this.event.TicketC1,
             TicketP1:this.event.TicketP1,
             TicketQ1:this.event.TicketQ1,
+            description:this.event.description
           })
 
         });
@@ -69,9 +71,9 @@ export class EventCreateComponent implements OnInit {
   }
 
   AddEvent(){
-    // if(this.eventForm.invalid){
-    //   return
-    // }
+    if(this.eventForm.invalid){
+      return
+    }
     if(this.mode ==='create'){
     // const Event:event={
     //   title:form.value.title,
@@ -91,15 +93,24 @@ export class EventCreateComponent implements OnInit {
                                 this.eventForm.value.TicketC1,
                                 this.eventForm.value.TicketP1,
                                 this.eventForm.value.TicketQ1,
+                                this.eventForm.value.description
                                 );
 
-    // }else{
-    //   this.eventService.updateEvent(this.eventId,
-    //     this.eventForm.value.title,
-    //     this.eventForm.value.date,
-    //   );
-    // }
-      console.log('came')
+    }else{
+      this.eventService.updateEvent(this.eventId,
+        this.eventForm.value.title,
+        this.eventForm.value.date,
+        this.eventForm.value.capacity,
+        this.eventForm.value.category,
+        this.eventForm.value.location,
+        this.eventForm.value.organization,
+        this.eventForm.value.TicketC1,
+        this.eventForm.value.TicketP1,
+        this.eventForm.value.TicketQ1,
+        this.eventForm.value.description
+
+      );
+    }
     this.eventForm.reset();
   }
 
@@ -114,4 +125,4 @@ export class EventCreateComponent implements OnInit {
   //   reader.readAsDataURL(file);
   // }
   }
-}
+

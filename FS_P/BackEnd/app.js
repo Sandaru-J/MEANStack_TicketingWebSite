@@ -40,7 +40,8 @@ app.post('/api/event',(req,res,next)=>{
         category:req.body.category,
         TicketC1:req.body.TicketC1,
         TicketP1:req.body.TicketP1,
-        TicketQ1:req.body.TicketQ1
+        TicketQ1:req.body.TicketQ1,
+        description:req.body.description
     });
     event.save()
     res.status(201).json({
@@ -52,7 +53,15 @@ app.put('/api/event/:id',(req,res,next)=>{
     const event=new Event({
         _id:req.body.id,
         title:req.body.title,
-        date:req.body.date
+        date:req.body.date,
+        organization:req.body.organization,
+        location:req.body.location,
+        capacity:req.body.capacity,
+        category:req.body.category,
+        TicketC1:req.body.TicketC1,
+        TicketP1:req.body.TicketP1,
+        TicketQ1:req.body.TicketQ1,
+        description:req.body.description
     })
     Event.updateOne({_id:req.params.id},event).then(result=>{
         console.log(result);
