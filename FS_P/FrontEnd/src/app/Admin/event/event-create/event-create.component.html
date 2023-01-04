@@ -1,109 +1,198 @@
 <div class="container">
   <mat-card>
-    <form #eventForm="ngForm" (submit)="AddEvent(eventForm)">
+    <form [formGroup]="eventForm" (submit)="AddEvent()">
       <h2>Event Details</h2>
       <div class="row">
         <div class="col-md-6">
           <mat-form-field>
-        <input matInput type="text" name="title"  #title="ngModel" [ngModel]="event?.title" required placeholder="Event Title">
-        <mat-error *ngIf="title.invalid">Please Enter a post Title</mat-error>
-      </mat-form-field>
-      <mat-form-field>
-        <input matInput type="text" name="date" #date="ngModel" [ngModel]="event?.date" required placeholder="Event Date">
-        <mat-error *ngIf="date.invalid">Please Enter a post Content</mat-error>
-      </mat-form-field>
-        </div>
-        <!-- <div class="col-md-6">
+            <input
+              matInput
+              type="text"
+               name="title"
+               required
+               formControlName="title"
+               placeholder="Event Title">
+            <mat-error *ngIf="eventForm.get('title').invalid">Please Enter a Event Title</mat-error>
+          </mat-form-field>
           <mat-form-field>
-        <input matInput type="text" name="organization"  required placeholder="Event Organization">
-        <mat-error>Please Enter a post Title</mat-error>
-      </mat-form-field>
-      <mat-form-field>
-        <input matInput type="text" name="location"  required placeholder="Event Location">
-        <mat-error >Please Enter a post Content</mat-error>
-      </mat-form-field>
-        </div> -->
+            <!-- <input
+              matInput
+              type="text"
+              name="date"
+              formControlName="date"
+              placeholder="Event Date"> -->
+              <input
+              matInput
+              [matDatepicker]="picker"
+              name="date"
+              formControlName="date"
+              placeholder="Choose a date">
+              <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+              <mat-datepicker #picker touchUi="false"></mat-datepicker>
+            <mat-error *ngIf="eventForm.get('date').invalid">Please Enter a Date</mat-error>
+          </mat-form-field>
+        </div>
+        <div class="col-md-6">
+          <mat-form-field>
+            <input
+              matInput
+              type="text"
+              name="organization"
+              formControlName="organization"
+              required
+              placeholder="Event Organization">
+            <mat-error *ngIf="eventForm.get('organization').invalid">Please Enter a Organization name</mat-error>
+          </mat-form-field>
+         <mat-form-field>
+          <input matInput
+            type="text"
+            name="location"
+            formControlName="location"
+            required
+            placeholder="Event Venue">
+            <mat-error *ngIf="eventForm.get('location').invalid">Please Enter a Venue</mat-error>
+         </mat-form-field>
+        </div>
       </div>
-      <!-- <div class="row">
+      <div class="row">
         <div class="col-md-6">
           <mat-form-field>
-        <input matInput type="text" name="capacity"  required placeholder="Ticket capacity">
-        <mat-error>Please Enter a post Title</mat-error>
-      </mat-form-field>
-       <mat-form-field>
-        <input matInput type="text" name="category"  required placeholder="Event Category">
-        <mat-error >Please Enter a post Content</mat-error>
-      </mat-form-field>
+            <input matInput
+              type="text"
+              name="capacity"
+              formControlName="capacity"
+              required
+              placeholder="Enter the Audience Capacity">
+              <mat-error *ngIf="eventForm.get('capacity').invalid">Please Enter a Audience Capacity Title</mat-error>
+          </mat-form-field>
         </div>
         <div class="col-md-6">
-          <mat-form-field>
-        <input matInput type="text" name="category"  required placeholder="Event Category">
-        <mat-error>Please Enter a post Title</mat-error>
-      </mat-form-field>
-      <mat-form-field>
-        <input matInput type="text" name="Location"  required placeholder="Event Location">
-        <mat-error >Please Enter a post Content</mat-error>
-      </mat-form-field>
+          <mat-form-field >
+            <!-- <input matInput
+              type="text"
+              name="category"
+              required
+              placeholder="Event Category"> -->
+              <mat-select
+              name="category"
+              formControlName="category"
+              required
+              placeholder="Event Type">
+              <mat-option *ngFor="let eventCat of eventCats" [value]="eventCat.value">
+                {{ eventCat.viewValue }}
+                </mat-option>
+              </mat-select>
+            <mat-error *ngIf="eventForm.get('category').invalid">Please Enter a post Title</mat-error>
+          </mat-form-field>
         </div>
-      </div> -->
-      <!-- <h2>Ticket classes</h2> -->
-      <!-- <div class="row">
+      </div>
+      <h2>Ticket classes</h2>
+      <div class="row">
         <div class="col-md-4">
           <mat-form-field>
-            <input matInput type="text" name="TicketC1"  required placeholder="Ticket class 1 Name">
-            <mat-error >Please Enter a post Content</mat-error>
+            <input matInput
+              type="text"
+              name="TicketC1"
+              formControlName="TicketC1"
+              required
+              placeholder="Ticket class 1 Name">
+            <mat-error *ngIf="eventForm.get('TicketC1').invalid">Please Enter a Ticket Class Name</mat-error>
+          </mat-form-field>
+          <!-- <mat-form-field>
+            <input matInput
+              type="text"
+              name="TicketC2"
+              required
+              placeholder="Ticket class 2 Name">
           </mat-form-field>
           <mat-form-field>
-            <input matInput type="text" name="TicketC2"  required placeholder="Ticket class 2 Name">
-            <mat-error >Please Enter a post Content</mat-error>
-          </mat-form-field>
-          <mat-form-field>
-            <input matInput type="text" name="TicketC2"  required placeholder="Ticket class 3 Name">
-            <mat-error >Please Enter a post Content</mat-error>
-          </mat-form-field>
+            <input matInput
+              type="text"
+              name="TicketC3"
+              required
+              placeholder="Ticket class 3 Name">
+          </mat-form-field> -->
         </div>
-          <div class="col-md-4">
+        <div class="col-md-4">
             <mat-form-field>
-              <input matInput type="text" name="TicketP1"  required placeholder="Ticket class 1 Price">
-              <mat-error >Please Enter a post Content</mat-error>
+              <input
+                matInput
+                type="text"
+                name="TicketP1"
+                formControlName="TicketP1"
+                required
+                placeholder="Ticket class 1 Price">
+                <span matSuffix>.00</span>
+                <mat-icon matSuffix> LKR</mat-icon>
+              <mat-error  *ngIf="eventForm.get('TicketP1').invalid">Please Enter Price for Ticket</mat-error>
+            </mat-form-field>
+            <!-- <mat-form-field>
+              <input
+                matInput
+                type="text"
+                name="TicketP2"
+                required
+                placeholder="Ticket class 2 Price">
             </mat-form-field>
             <mat-form-field>
-              <input matInput type="text" name="TicketP2"  required placeholder="Ticket class 2 Price">
-              <mat-error >Please Enter a post Content</mat-error>
-            </mat-form-field>
+              <input
+                matInput
+                type="text"
+                name="TicketP3"
+                required
+                placeholder="Ticket class 3 Price">
+            </mat-form-field> -->
+        </div>
+        <div class="col-md-4">
             <mat-form-field>
-              <input matInput type="text" name="TicketP3"  required placeholder="Ticket class 3 Price">
-              <mat-error >Please Enter a post Content</mat-error>
+              <input
+              matInput
+              type="text"
+              name="TicketQ1"
+              formControlName="TicketQ1"
+              required
+              placeholder="Ticket class 1 Quantity">
+              <mat-error  *ngIf="eventForm.get('TicketQ1').invalid">Please Enter amount of Tickets</mat-error>
             </mat-form-field>
-          </div>
-          <div class="col-md-4">
-            <mat-form-field>
-              <input matInput type="text" name="TicketQ1"  required placeholder="Ticket class 1 Quantity">
-              <mat-error >Please Enter a post Content</mat-error>
-            </mat-form-field>
-            <mat-form-field>
+            <!-- <mat-form-field>
               <input matInput type="text" name="TicketQ2"  required placeholder="Ticket class 2 Quantity">
-              <mat-error >Please Enter a post Content</mat-error>
             </mat-form-field>
             <mat-form-field>
               <input matInput type="text" name="TicketQ3"  required placeholder="Ticket class 3 Quantity">
-              <mat-error >Please Enter a post Content</mat-error>
-            </mat-form-field>
-          </div>
+            </mat-form-field> -->
+        </div>
 
-      </div> -->
-      <!-- <mat-form-field>
-        <input matInput type="text" name="title"  required placeholder="Post Title">
-        <mat-error>Please Enter a post Title</mat-error>
-      </mat-form-field> -->
-      <!-- <mat-form-field>
-        <textarea matInput rows="4" name="description" required placeholder="Event Description"></textarea>
-        <mat-error>Please Enter a post Title</mat-error>
-      </mat-form-field> -->
-      <button
-      mat-raised-button
-      color="accent"
-      type="submit">Save Post</button>
+      </div>
+      <h2>Event Description</h2>
+      <div class="row">
+        <!-- <mat-form-field>
+          <input matInput type="text" name="title"  required placeholder="Post Title">
+          <mat-error>Please Enter a post Title</mat-error>
+        </mat-form-field> -->
+        <mat-form-field>
+          <textarea
+          matInput
+          rows="4"
+          name="description"
+          formControlName="description"
+          required
+          placeholder="Event Description"></textarea>
+          <mat-error *ngIf="eventForm.get('description').invalid">Please Enter a Description</mat-error>
+        </mat-form-field>
+      </div>
+
+      <h2>Images</h2>
+      <div>
+        <button mat-stroked-button type="button" (click)="filePicker.click()">Choose Images</button>
+        <input type="file" #filePicker >
+      </div>
+      <div>
+        <button
+        mat-raised-button
+        color="accent"
+        type="submit">Save Post</button>
+      </div>
+
     </form>
   </mat-card>
 </div>

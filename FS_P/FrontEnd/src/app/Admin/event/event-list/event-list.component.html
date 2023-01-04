@@ -8,6 +8,14 @@
         </mat-panel-description> -->
       </mat-expansion-panel-header>
        <p>{{ event.date }}</p>
+       <p>{{ event.organization }}</p>
+       <p>{{ event.location }}</p>
+       <p>{{ event.capacity }}</p>
+       <p>{{ event.category }}</p>
+       <p>{{ event.TicketC1 }}</p>
+       <p>{{ event.TicketP1 }}.00 LKR</p>
+       <p>{{ event.TicketQ1 }}</p>
+       <p>{{ event.description }}</p>
        <mat-action-row>
         <a mat-button color="primary" [routerLink]="['/edit',event.id]">Edit</a>
         <button mat-button color="warn" (click)="onDelete(event.id)">Delete</button>
