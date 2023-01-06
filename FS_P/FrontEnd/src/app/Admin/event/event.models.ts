@@ -20,4 +20,5 @@ export interface Event{
   // TicketQ3:Number;
 
   description:string;
+  imagePath: string;
 }

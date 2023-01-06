@@ -16,6 +16,9 @@
        <p>{{ event.TicketP1 }}.00 LKR</p>
        <p>{{ event.TicketQ1 }}</p>
        <p>{{ event.description }}</p>
+       <!-- <div class="image-view">
+        <img [src]="event.imagePath" [alt]="event.title">
+      </div> -->
        <mat-action-row>
         <a mat-button color="primary" [routerLink]="['/edit',event.id]">Edit</a>
         <button mat-button color="warn" (click)="onDelete(event.id)">Delete</button>

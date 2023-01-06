@@ -1,6 +1,10 @@
 const express=require('express');
 const bodyParser=require('body-parser');
 const mongoose = require('mongoose');
+const path = require('path')
+mongoose.set('strictQuery', false);
+
+const multer= require('multer');
 
 const Event = require('../BackEnd/models/event');
 
@@ -14,8 +18,30 @@ mongoose.connect("mongodb+srv://SiteUser:nAxKdh83uoIeaWFc@cluster0.h9ytvqs.mongo
     console.log('Database Connection Failed')
 });
 
+const MIME_TYPE_MAP={
+    'image/png':'png',
+    'image/jpeg':'jpg',
+    'image/jpg':'jpg'
+}
+const storage = multer.diskStorage({
+    destination:(req,file,cb)=>{
+        const isvalid=MIME_TYPE_MAP[file.mimetype];
+        let error = new Error('Invalid mime type');
+        if(isvalid){
+            error= null;
+        }
+        cb(error,'./images/');
+    },
+    filename:(req,file,cb)=>{
+        const name= file.originalname.toLowerCase().split('').join('-');
+        const ext=MIME_TYPE_MAP[file.mimetype];
+        cb(null,Date.now()+'.'+ext);
+    }
+});
+
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: false }));
+app.use('/images',express.static(path.resolve('./images')))
 
 app.use((req,res,next) =>{
     res.setHeader("Access-Control-Allow-Origin", "*");
@@ -29,8 +55,10 @@ app.use((req,res,next) =>{
     );
     next();
   });
-app.post('/api/event',(req,res,next)=>{
+app.post('/api/event',multer({storage:storage}).single('image'),(req,res,next)=>{
     console.log(req.body);
+    const imgUrl="http://localhost:3000/images/"+req.file.filename;
+    //console.log(imgUrl)
     const event = new Event({
         title:req.body.title,
         date:req.body.date,
@@ -41,7 +69,8 @@ app.post('/api/event',(req,res,next)=>{
         TicketC1:req.body.TicketC1,
         TicketP1:req.body.TicketP1,
         TicketQ1:req.body.TicketQ1,
-        description:req.body.description
+        description:req.body.description,
+        imagePath:imgUrl
     });
     event.save()
     res.status(201).json({

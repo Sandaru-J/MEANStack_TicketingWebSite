@@ -67,7 +67,8 @@ export class EventService {
               TicketC1:eventData.event.TicketC1,
               TicketP1:eventData.event.TicketP1,
               TicketQ1:eventData.event.TicketQ1,
-              description:eventData.event.description
+              description:eventData.event.description,
+              //imagePath:eventData.event.image
             }
 
         }))
@@ -83,25 +84,52 @@ export class EventService {
             TicketC1:string,
             TicketP1:number,
             TicketQ1:number,
-            description:string) {
-    const event: Event = {
-      id: null,
-      title: title,
-      date: date,
-      organization:organization,
-      location:location,
-      capacity:capacity,
-      category:category,
-      TicketC1:TicketC1,
-      TicketP1:TicketP1,
-      TicketQ1:TicketQ1,
-      description:description
-    };
-    this.http.post<{message:string,eventId:string}>('http://localhost:3000/api/event',event)
+            description:string,
+            image:File
+            ) {
+    // const event: Event = {
+    //   id: null,
+    //   title: title,
+    //   date: date,
+    //   organization:organization,
+    //   location:location,
+    //   capacity:capacity,
+    //   category:category,
+    //   TicketC1:TicketC1,
+    //   TicketP1:TicketP1,
+    //   TicketQ1:TicketQ1,
+    //   description:description
+    // };
+    const eventData= new FormData();
+    eventData.append('title',title);
+    eventData.append('date',date);
+    eventData.append('organization',organization);
+    eventData.append('location',location);
+    eventData.append('capacity', capacity.toString());
+    eventData.append('category',category);
+    eventData.append('TicketC1',TicketC1);
+    eventData.append('TicketP1',TicketP1.toString());
+    eventData.append('TicketQ1',TicketQ1.toString());
+    eventData.append('description',description);
+    //eventData.append('image',image,title)
+    this.http.post<{message:string,eventId:string}>('http://localhost:3000/api/event',eventData)
     .subscribe(responseData=>{
-      console.log(responseData.message)
-      const id=responseData.eventId;
-      event.id=id;
+      const event:Event={
+        id: responseData.eventId,
+        title: title,
+        date: date,
+        organization: organization,
+        location: location,
+        capacity: capacity,
+        category: category,
+        TicketC1: TicketC1,
+        TicketP1: TicketP1,
+        TicketQ1: TicketQ1,
+        description: description,
+        imagePath: ''
+      }
+      // const id=responseData.eventId; // used when not using image uncomment above const post to activate
+      // event.id=id;
       this.events.push(event);
       this.eventUpdated.next([...this.events]);
       //console.log(event)
@@ -122,10 +150,11 @@ export class EventService {
               description:string){
     const event:Event={
       id: id, title: title, date: date,
-      organization: organization,location:location,
-      capacity:capacity,category:category,
-      TicketC1:TicketC1,TicketP1:TicketP1,
-      TicketQ1:TicketQ1,description:description
+      organization: organization, location: location,
+      capacity: capacity, category: category,
+      TicketC1: TicketC1, TicketP1: TicketP1,
+      TicketQ1: TicketQ1, description: description,
+      imagePath: ''
     };
     this.http
     .put('http://localhost:3000/api/event/'+ id,event)
