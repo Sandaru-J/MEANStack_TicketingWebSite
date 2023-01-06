@@ -152,7 +152,7 @@
               formControlName="TicketQ1"
               required
               placeholder="Ticket class 1 Quantity">
-              <mat-error  *ngIf="eventForm.get('TicketQ1').invalid">Please Enter amount of Tickets</mat-error>
+              <mat-error  *ngIf="eventForm.get('TicketQ1').invalid || eventForm.get('TicketQ1').touched">Please Enter amount of Tickets</mat-error>
             </mat-form-field>
             <!-- <mat-form-field>
               <input matInput type="text" name="TicketQ2"  required placeholder="Ticket class 2 Quantity">
@@ -184,7 +184,10 @@
       <h2>Images</h2>
       <div>
         <button mat-stroked-button type="button" (click)="filePicker.click()">Choose Images</button>
-        <input type="file" #filePicker >
+        <input type="file" #filePicker (change)="onImagePicked($event)">
+      </div>
+      <div class="image-preview" *ngIf="imagePreview !== '' && imagePreview  && eventForm.get('image').valid">
+        <img [src]="imagePreview" [alt]="eventForm.value.title">
       </div>
       <div>
         <button

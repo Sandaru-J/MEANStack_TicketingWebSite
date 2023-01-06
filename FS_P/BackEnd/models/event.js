@@ -20,7 +20,10 @@ const eventSchema = mongoose.Schema({
     TicketQ2:{type:Number,required:false},
     TicketQ3:{type:Number,required:false},
 
-    description:{type:String,required:true}
+    description:{type:String,required:true},
+
+
+    imagePath: { type: String, required: true }
 });
 
 module.exports = mongoose.model('Event',eventSchema);

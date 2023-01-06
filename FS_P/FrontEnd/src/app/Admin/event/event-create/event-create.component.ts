@@ -4,6 +4,7 @@ import { FormControl, FormGroup, Validators} from "@angular/forms";
 import { EventService } from '../event.service';
 import { ActivatedRoute, ParamMap } from '@angular/router';
 import { Injectable } from '@angular/core';
+import { mimeType } from './mime-type.validator';
 
 @Component({
   selector: 'app-event-create',
@@ -39,7 +40,10 @@ export class EventCreateComponent implements OnInit {
       'TicketC1':new FormControl('',{validators:[Validators.required]}),
       'TicketP1':new FormControl('',{validators:[Validators.required]}),
       'TicketQ1':new FormControl('',{validators:[Validators.required]}),
-      'description':new FormControl('',{validators:[Validators.required]})
+      'description':new FormControl('',{validators:[Validators.required]}),
+      'image':new FormControl(null,{
+          validators:[Validators.required],
+          asyncValidators:[mimeType]})
     });
     this.route.paramMap.subscribe((paramMap:ParamMap)=>{
       if(paramMap.has('eventId')){
@@ -93,7 +97,8 @@ export class EventCreateComponent implements OnInit {
                                 this.eventForm.value.TicketC1,
                                 this.eventForm.value.TicketP1,
                                 this.eventForm.value.TicketQ1,
-                                this.eventForm.value.description
+                                this.eventForm.value.description,
+                                this.eventForm.value.image
                                 );
 
     }else{
@@ -107,22 +112,24 @@ export class EventCreateComponent implements OnInit {
         this.eventForm.value.TicketC1,
         this.eventForm.value.TicketP1,
         this.eventForm.value.TicketQ1,
-        this.eventForm.value.description
+        this.eventForm.value.description,
 
       );
     }
     this.eventForm.reset();
   }
 
-  // onImagePicked(event:any){
-  //   const fileInput = event.target as HTMLInputElement;
-  // const file = fileInput.files[0];
-  //   this.eventForm.get("image").updateValueAndValidity();
-  //   const reader = new FileReader();
-  //   reader.onload = () => {
-  //     this.imagePreview = reader.result as string;
-  //   };
-  //   reader.readAsDataURL(file);
-  // }
+  onImagePicked(event:any){
+    const fileInput = event.target as HTMLInputElement;
+    const file = fileInput.files[0];
+    this.eventForm.patchValue({image:file});
+    this.eventForm.get("image").updateValueAndValidity();
+    const reader = new FileReader();
+    reader.onload = () => {
+      this.imagePreview = reader.result as string;
+    };
+    reader.readAsDataURL(file);
+
+  }
   }
 
