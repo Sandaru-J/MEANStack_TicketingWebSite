@@ -58,7 +58,7 @@ app.use((req,res,next) =>{
 app.post('/api/event',multer({storage:storage}).single('image'),(req,res,next)=>{
     console.log(req.body);
     const imgUrl="http://localhost:3000/images/"+req.file.filename;
-    //console.log(imgUrl)
+    console.log(imgUrl)
     const event = new Event({
         title:req.body.title,
         date:req.body.date,
@@ -114,7 +114,7 @@ app.get('/api/event/:id',(req,res,next)=>{
         .then(documents=>{
             console.log(documents);
             res.status(200).json({
-                message:'Event Refresdhed Sucessfully',
+                message:'Event fetched Sucessfully',
                 event:documents
             });
         });

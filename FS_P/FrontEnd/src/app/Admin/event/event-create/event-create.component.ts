@@ -49,10 +49,37 @@ export class EventCreateComponent implements OnInit {
       if(paramMap.has('eventId')){
         this.mode='edit';
         this.eventId=paramMap.get('eventId');
-        console.log(this.eventId)
-        this.event=this.eventService.getEvent(this.eventId).subscribe((event)=>{
-          console.log(this.event)
-          this.event = event;
+
+        this.eventService.getEvent(this.eventId).subscribe((event)=>{
+
+          //this.event = event;
+          // this.eventForm.setValue({
+          //   title:this.event.title,
+          //   date:this.event.date,
+          //   organization:this.event.organization,
+          //   location:this.event.location,
+          //   capacity:this.event.capacity,
+          //   category:this.event.category,
+          //   TicketC1:this.event.TicketC1,
+          //   TicketP1:this.event.TicketP1,
+          //   TicketQ1:this.event.TicketQ1,
+          //   description:this.event.description,
+          //   imagePath:this.event.imagePath
+          // })
+          this.event={
+            id:event.id,
+            title:event.title,
+            date:event.date,
+            organization:event.organization,
+            location:event.location,
+            capacity:event.capacity,
+            category:event.category,
+            TicketC1:event.TicketC1,
+            TicketP1:event.TicketP1,
+            TicketQ1:event.TicketQ1,
+            description:event.description,
+            imagePath:null
+          }
           this.eventForm.setValue({
             title:this.event.title,
             date:this.event.date,
@@ -63,7 +90,8 @@ export class EventCreateComponent implements OnInit {
             TicketC1:this.event.TicketC1,
             TicketP1:this.event.TicketP1,
             TicketQ1:this.event.TicketQ1,
-            description:this.event.description
+            description:this.event.description,
+            image:this.event.imagePath
           })
 
         });
@@ -113,10 +141,12 @@ export class EventCreateComponent implements OnInit {
         this.eventForm.value.TicketP1,
         this.eventForm.value.TicketQ1,
         this.eventForm.value.description,
+        //this.eventForm.value.image
 
       );
     }
     this.eventForm.reset();
+
   }
 
   onImagePicked(event:any){

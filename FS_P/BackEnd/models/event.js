@@ -21,8 +21,6 @@ const eventSchema = mongoose.Schema({
     TicketQ3:{type:Number,required:false},
 
     description:{type:String,required:true},
-
-
     imagePath: { type: String, required: true }
 });
 

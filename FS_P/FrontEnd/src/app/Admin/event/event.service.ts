@@ -15,7 +15,6 @@ export class EventService {
   constructor(private http:HttpClient,private router:Router){}
 
   getEvents() {
-    // return [...this.events];
     this.http
     .get<{message:string,event: any}>(
       'http://localhost:3000/api/event'
@@ -33,7 +32,8 @@ export class EventService {
               TicketC1:event.TicketC1,
               TicketP1:event.TicketP1,
               TicketQ1:event.TicketQ1,
-              description:event.description
+              description:event.description,
+              imagePath:event.imagePath
             }
           })
         }))
@@ -48,8 +48,6 @@ export class EventService {
     return this.eventUpdated.asObservable();
   }
   getEvent(id:string){
-    // console.log(this.events,id)
-    // return{...this.events.find(p=>p.id===id)};
    return  this.http
     .get<{message:string,event: any}>(
       'http://localhost:3000/api/event/'+id
@@ -68,12 +66,20 @@ export class EventService {
               TicketP1:eventData.event.TicketP1,
               TicketQ1:eventData.event.TicketQ1,
               description:eventData.event.description,
-              //imagePath:eventData.event.image
+              imagePath:eventData.event.imagePath
             }
 
         }))
 
   }
+
+  // getEvent(id:string){
+  //   return this.http.get<{
+  //     _id:string,title:string,date:string,organization:string,
+  //     capacity:Number,location:string,category:string,TicketC1:string,
+  //     TicketP1:Number,TicketQ1:Number,description:string,imagePath:string
+  //   }>("http://localhost:3000/api/event/" + id)
+  // }
 
   addEvents(title: string,
             date: string,
@@ -111,8 +117,10 @@ export class EventService {
     eventData.append('TicketP1',TicketP1.toString());
     eventData.append('TicketQ1',TicketQ1.toString());
     eventData.append('description',description);
-    //eventData.append('image',image,title)
-    this.http.post<{message:string,eventId:string}>('http://localhost:3000/api/event',eventData)
+    eventData.append('image',image,title)
+    this.http.post<{
+      event: any;message:string,eventId:string
+}>('http://localhost:3000/api/event',eventData)
     .subscribe(responseData=>{
       const event:Event={
         id: responseData.eventId,
@@ -126,7 +134,7 @@ export class EventService {
         TicketP1: TicketP1,
         TicketQ1: TicketQ1,
         description: description,
-        imagePath: ''
+        imagePath:""
       }
       // const id=responseData.eventId; // used when not using image uncomment above const post to activate
       // event.id=id;
