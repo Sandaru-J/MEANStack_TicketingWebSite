@@ -108,12 +108,27 @@ app.put('/api/event/:id',
 });
 
 app.get('/api/event',(req,res,next)=>{
-    Event.find()
+    const pageSize=req.query.pagesize;
+    const currentPage=req.query.page;
+    const eventQuery=Event.find();
+    let fetechedEvents;
+    if(pageSize && currentPage){    
+        eventQuery
+        .skip(pageSize * (currentPage -1))
+        .limit(pageSize);
+    }
+    //Event.find()
+    eventQuery
         .then(documents=>{
+            fetechedEvents=documents;
+            return Event.count();
             console.log(documents);
+            })
+        .then(count=>{
             res.status(200).json({
-                message:'Event Added Sucessfully',
-                event:documents
+                message:'Event fetched Sucessfully',
+                events:fetechedEvents,
+                maxEvents:count
             });
         });
     
@@ -121,11 +136,16 @@ app.get('/api/event',(req,res,next)=>{
 app.get('/api/event/:id',(req,res,next)=>{
     Event.findOne({_id:req.params.id})
         .then(documents=>{
-            console.log(documents);
+            if(documents){
+                console.log(documents);
             res.status(200).json({
                 message:'Event fetched Sucessfully',
                 event:documents
             });
+            }else{
+                res.status(404).json({message:'Event not found'});
+            }
+            
         });
     
 });

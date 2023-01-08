@@ -1,7 +1,7 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { response } from 'express';
-import { map, Subject } from 'rxjs';
+import { map, Observable, Subject } from 'rxjs';
 import { Event } from './event.models';
 import { Router } from "@angular/router";
 import { transition } from '@angular/animations';
@@ -9,18 +9,20 @@ import { transition } from '@angular/animations';
 @Injectable({providedIn: 'root'})
 export class EventService {
   private events: Event[] = [];
-  private eventUpdated = new Subject<Event[]>();
+  private eventUpdated = new Subject<{Events:Event[],eventCount:number}>();
 
 
   constructor(private http:HttpClient,private router:Router){}
 
-  getEvents() {
+  getEvents(eventPerPage:number,currentPage:number) {
+    const queryParams = `?pagesize=${eventPerPage}&page=${currentPage}`;
     this.http
-    .get<{message:string,event: any}>(
-      'http://localhost:3000/api/event'
+    .get<{message:string,events: any,maxEvents:number}>(
+      'http://localhost:3000/api/event'+ queryParams
       ).pipe(
         map((eventData)=>{
-          return eventData.event.map((event:any) =>{
+          return {
+            events:eventData.events.map((event: { title: any; date: any; organization: any; _id: any; capacity: any; location: any; category: any; TicketC1: any; TicketP1: any; TicketQ1: any; description: any; imagePath: any; }) =>{
             return{
               title:event.title,
               date:event.date,
@@ -34,13 +36,17 @@ export class EventService {
               TicketQ1:event.TicketQ1,
               description:event.description,
               imagePath:event.imagePath
-            }
-          })
+            };
+          }),
+          maxEvents:eventData.maxEvents
+        };
         }))
-    .subscribe((trasformedData)=>{
-      this.events=trasformedData;
-      this.eventUpdated.next([...this.events]);
-      console.log(trasformedData);
+    .subscribe((trasformedEventData)=>{
+      this.events=trasformedEventData.events;
+      this.eventUpdated.next({
+        Events:[...this.events],
+        eventCount:trasformedEventData.maxEvents});
+      //console.log(trasformedData);
     });
   }
 
@@ -122,25 +128,26 @@ export class EventService {
       event: any;message:string,eventId:string
 }>('http://localhost:3000/api/event',eventData)
     .subscribe(responseData=>{
-      const event:Event={
-        id: responseData.eventId,
-        title: title,
-        date: date,
-        organization: organization,
-        location: location,
-        capacity: capacity,
-        category: category,
-        TicketC1: TicketC1,
-        TicketP1: TicketP1,
-        TicketQ1: TicketQ1,
-        description: description,
-        imagePath:""
-      }
-      // const id=responseData.eventId; // used when not using image uncomment above const post to activate
-      // event.id=id;
-      this.events.push(event);
-      this.eventUpdated.next([...this.events]);
+      // const event:Event={
+      //   id: responseData.eventId,
+      //   title: title,
+      //   date: date,
+      //   organization: organization,
+      //   location: location,
+      //   capacity: capacity,
+      //   category: category,
+      //   TicketC1: TicketC1,
+      //   TicketP1: TicketP1,
+      //   TicketQ1: TicketQ1,
+      //   description: description,
+      //   imagePath:""
+      // }
+      // // const id=responseData.eventId; // used when not using image uncomment above const post to activate
+      // // event.id=id;
+      // this.events.push(event);
+      // this.eventUpdated.next([...this.events]);
       //console.log(event)
+      this.router.navigate(['/']);
     });
   }
 
@@ -202,35 +209,36 @@ export class EventService {
     this.http
     .put('http://localhost:3000/api/event/'+ id,eventData)
     .subscribe(response=>{
-      const updatedEvent=[...this.events];
-      const oldEventIndex=updatedEvent.findIndex(p=>p.id ===id);
-      const event:Event={
-        id: id,
-        title: title,
-        date: date,
-        organization:organization,
-        location: location,
-        capacity: capacity,
-        category: category,
-        TicketC1: TicketC1,
-        TicketP1: TicketP1,
-        TicketQ1: TicketQ1,
-        description: description,
-        imagePath: ""
-      }
-      updatedEvent[oldEventIndex]=event;
-      this.events=updatedEvent;
-      this.eventUpdated.next([...this.events]);
+      // const updatedEvent=[...this.events];
+      // const oldEventIndex=updatedEvent.findIndex(p=>p.id ===id);
+      // const event:Event={
+      //   id: id,
+      //   title: title,
+      //   date: date,
+      //   organization:organization,
+      //   location: location,
+      //   capacity: capacity,
+      //   category: category,
+      //   TicketC1: TicketC1,
+      //   TicketP1: TicketP1,
+      //   TicketQ1: TicketQ1,
+      //   description: description,
+      //   imagePath: ""
+      // }
+      // updatedEvent[oldEventIndex]=event;
+      // this.events=updatedEvent;
+      // this.eventUpdated.next([...this.events]);
       this.router.navigate(['/event-list'])
     })
   }
 
   deleteEvent(eventId:string){
+    return
     this.http.delete('http://localhost:3000/api/event/'+ eventId)
-    .subscribe(()=>{
-      const updatedEvent=this.events.filter(event=>event.id !== eventId);
-      this.events=updatedEvent;
-      this.eventUpdated.next([...this.events]);
-    })
+    // .subscribe(()=>{
+    //   const updatedEvent=this.events.filter(event=>event.id !== eventId);
+    //   this.events=updatedEvent;
+    //   this.eventUpdated.next([...this.events]);
+    // })
   }
 }

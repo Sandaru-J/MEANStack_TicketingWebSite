@@ -13,6 +13,8 @@ import { ReactiveFormsModule } from '@angular/forms';
 import { MatDatepickerModule } from '@angular/material/datepicker';
 import { MatNativeDateModule } from '@angular/material/core';
 import { MatSelectModule } from '@angular/material/select';
+import { MatInputModule } from '@angular/material/input';
+import { MatPaginatorModule } from '@angular/material/paginator';
 
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
@@ -24,7 +26,7 @@ import { LoginComponent } from './Admin/Login/login/login.component';
 import { EventCreateComponent } from './Admin/event/event-create/event-create.component';
 import { AdHeaderComponent } from './Admin/header/header.component';
 import { EventListComponent } from './Admin/event/event-list/event-list.component';
-import {  MatInputModule } from '@angular/material/input';
+
 
 
 
@@ -55,7 +57,8 @@ import {  MatInputModule } from '@angular/material/input';
     ReactiveFormsModule,
     MatDatepickerModule,
     MatNativeDateModule,
-    MatSelectModule
+    MatSelectModule,
+    MatPaginatorModule
   ],
   providers: [],
   bootstrap: [AppComponent]
