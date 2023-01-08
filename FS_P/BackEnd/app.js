@@ -78,7 +78,15 @@ app.post('/api/event',multer({storage:storage}).single('image'),(req,res,next)=>
     });
 });
 
-app.put('/api/event/:id',(req,res,next)=>{
+app.put('/api/event/:id',
+    multer({storage:storage}).single('image'),(req,res,next)=>{
+     let imagePath=req.body.imagePath;
+     if(req.file){
+      // const imgUrl="http://localhost:3000/images/"+req.file.filename;
+      // imagePath=imgUrl;
+      const url = req.protocol + "://" + req.get("host");
+      imagePath = url + "/images/" + req.file.filename
+     }
     const event=new Event({
         _id:req.body.id,
         title:req.body.title,
@@ -90,7 +98,8 @@ app.put('/api/event/:id',(req,res,next)=>{
         TicketC1:req.body.TicketC1,
         TicketP1:req.body.TicketP1,
         TicketQ1:req.body.TicketQ1,
-        description:req.body.description
+        description:req.body.description,
+        imagePath:imagePath
     })
     Event.updateOne({_id:req.params.id},event).then(result=>{
         console.log(result);

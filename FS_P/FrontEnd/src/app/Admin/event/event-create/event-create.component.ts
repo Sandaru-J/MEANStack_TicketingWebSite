@@ -141,7 +141,7 @@ export class EventCreateComponent implements OnInit {
         this.eventForm.value.TicketP1,
         this.eventForm.value.TicketQ1,
         this.eventForm.value.description,
-        //this.eventForm.value.image
+        this.eventForm.value.image
 
       );
     }
