@@ -15,7 +15,6 @@ export class EventService {
   constructor(private http:HttpClient,private router:Router){}
 
   getEvents() {
-    // return [...this.events];
     this.http
     .get<{message:string,event: any}>(
       'http://localhost:3000/api/event'
@@ -33,7 +32,8 @@ export class EventService {
               TicketC1:event.TicketC1,
               TicketP1:event.TicketP1,
               TicketQ1:event.TicketQ1,
-              description:event.description
+              description:event.description,
+              imagePath:event.imagePath
             }
           })
         }))
@@ -48,8 +48,6 @@ export class EventService {
     return this.eventUpdated.asObservable();
   }
   getEvent(id:string){
-    // console.log(this.events,id)
-    // return{...this.events.find(p=>p.id===id)};
    return  this.http
     .get<{message:string,event: any}>(
       'http://localhost:3000/api/event/'+id
@@ -68,12 +66,20 @@ export class EventService {
               TicketP1:eventData.event.TicketP1,
               TicketQ1:eventData.event.TicketQ1,
               description:eventData.event.description,
-              //imagePath:eventData.event.image
+              imagePath:eventData.event.imagePath
             }
 
         }))
 
   }
+
+  // getEvent(id:string){
+  //   return this.http.get<{
+  //     _id:string,title:string,date:string,organization:string,
+  //     capacity:Number,location:string,category:string,TicketC1:string,
+  //     TicketP1:Number,TicketQ1:Number,description:string,imagePath:string
+  //   }>("http://localhost:3000/api/event/" + id)
+  // }
 
   addEvents(title: string,
             date: string,
@@ -111,8 +117,10 @@ export class EventService {
     eventData.append('TicketP1',TicketP1.toString());
     eventData.append('TicketQ1',TicketQ1.toString());
     eventData.append('description',description);
-    //eventData.append('image',image,title)
-    this.http.post<{message:string,eventId:string}>('http://localhost:3000/api/event',eventData)
+    eventData.append('image',image,title)
+    this.http.post<{
+      event: any;message:string,eventId:string
+}>('http://localhost:3000/api/event',eventData)
     .subscribe(responseData=>{
       const event:Event={
         id: responseData.eventId,
@@ -126,7 +134,7 @@ export class EventService {
         TicketP1: TicketP1,
         TicketQ1: TicketQ1,
         description: description,
-        imagePath: ''
+        imagePath:""
       }
       // const id=responseData.eventId; // used when not using image uncomment above const post to activate
       // event.id=id;
@@ -147,24 +155,73 @@ export class EventService {
               TicketC1:string,
               TicketP1:number,
               TicketQ1:number,
-              description:string){
-    const event:Event={
-      id: id, title: title, date: date,
-      organization: organization, location: location,
-      capacity: capacity, category: category,
-      TicketC1: TicketC1, TicketP1: TicketP1,
-      TicketQ1: TicketQ1, description: description,
-      imagePath: ''
-    };
+              description:string,
+              image:File | string){
+    // const event:Event={
+    //   id: id, title: title, date: date,
+    //   organization: organization, location: location,
+    //   capacity: capacity, category: category,
+    //   TicketC1: TicketC1, TicketP1: TicketP1,
+    //   TicketQ1: TicketQ1, description: description,
+    //   imagePath: ''
+    // };
+    let eventData:Event|FormData;
+    if(typeof image==='object'){
+      eventData = new FormData();
+      eventData.append('id',id);
+      eventData.append('title',title);
+      eventData.append('date',date);
+      eventData.append('organization',organization);
+      eventData.append('location',location);
+      eventData.append('capacity', capacity.toString());
+      eventData.append('category',category);
+      eventData.append('TicketC1',TicketC1);
+      eventData.append('TicketP1',TicketP1.toString());
+      eventData.append('TicketQ1',TicketQ1.toString());
+      eventData.append('description',description);
+      eventData.append('image',image,title)
+      console.log('comes first one')
+    }else{
+      eventData={
+        id:id,
+        title:title,
+        date:date,
+        organization:organization,
+        location:location,
+        capacity:capacity,
+        category:category,
+        TicketC1:TicketC1,
+        TicketP1:TicketP1,
+        TicketQ1:TicketQ1,
+        description:description,
+        imagePath:image,
+
+      }
+
+    }
     this.http
-    .put('http://localhost:3000/api/event/'+ id,event)
+    .put('http://localhost:3000/api/event/'+ id,eventData)
     .subscribe(response=>{
       const updatedEvent=[...this.events];
-      const oldEventIndex=updatedEvent.findIndex(p=>p.id === event.id);
+      const oldEventIndex=updatedEvent.findIndex(p=>p.id ===id);
+      const event:Event={
+        id: id,
+        title: title,
+        date: date,
+        organization:organization,
+        location: location,
+        capacity: capacity,
+        category: category,
+        TicketC1: TicketC1,
+        TicketP1: TicketP1,
+        TicketQ1: TicketQ1,
+        description: description,
+        imagePath: ""
+      }
       updatedEvent[oldEventIndex]=event;
       this.events=updatedEvent;
       this.eventUpdated.next([...this.events]);
-      this.router.navigate(['/'])
+      this.router.navigate(['/event-list'])
     })
   }
 
