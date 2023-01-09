@@ -1,0 +1,39 @@
+<div class="container" >
+    <div class="row">
+          <div class="col-md-3" *ngFor="let event of events">
+            <div class="card">
+              <div class="card-main">
+                  <div class="discount">{{event.organization}}</div>
+                  <div class="label label-green">{{event.category}}</div>
+                  <div class="EventContainer">
+                    <p>{{event.location}}</p>
+                      <!-- <div class="p" (mouseover)="imgChange1($event)"><img src="../assets/evntCrd1.jpg"
+                              alt="Product"></div>
+                      <div class="p" (mouseover)="imgChange1($event)" ><img src="../assets/evntCrd2.jpg"
+                              alt="Product"></div>
+                      <div class="p" (mouseover)="imgChange1($event)" ><img src="../assets/evntCrd3.jpg"
+                              alt="Product"></div> -->
+                  </div>
+                  <div class="image">
+                      <img [src]="event.imagePath" [alt]="event.title">
+                  </div>
+                  <div class="cart-line"></div>
+                  <div class="cart-item">
+                      <ul>
+                          <li><a href=""><i class="fa fa-shopping-basket"></i></a></li>
+                          <!-- <li><a href=""><i class="fa fa-heart"></i></a></li> -->
+                      </ul>
+                  </div>
+              </div>
+              <div class="content">
+                <p><span class="priceL">{{event.date}} LKR</span></p>
+                  <a href="javascript:void(0);">{{event.title}}</a>
+                  <p><span class="priceL">{{event.TicketP1}} LKR</span>
+                    <!-- <span style="font-size:16px;color: chocolate;font-style: italic;"> to </span><span class="priceH">10000LKR</span> -->
+                  </p>
+              </div>
+          </div>
+          </div>
+
+
+</div>

@@ -24,8 +24,11 @@ import { LoginComponent } from './Admin/Login/login/login.component';
 import { EventCreateComponent } from './Admin/event/event-create/event-create.component';
 import { AdHeaderComponent } from './Admin/header/header.component';
 import { EventListComponent } from './Admin/event/event-list/event-list.component';
-import {  MatInputModule } from '@angular/material/input';
+import { MatInputModule } from '@angular/material/input';
 
+import { TemplateComponent } from './EvList/shared/template/template.component';
+import { ListViewComponent } from './EvList/root/list-view/list-view.component';
+import { EvListService } from './EvList/evList.service';
 
 
 @NgModule({
@@ -39,6 +42,9 @@ import {  MatInputModule } from '@angular/material/input';
     EventCreateComponent,
     AdHeaderComponent,
     EventListComponent,
+    TemplateComponent,
+    ListViewComponent,
+
   ],
   imports: [
     BrowserModule,

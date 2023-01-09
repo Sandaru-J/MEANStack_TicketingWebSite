@@ -14,10 +14,10 @@ import { mimeType } from './mime-type.validator';
 export class EventCreateComponent implements OnInit {
 
   eventCats = [
-    {value: 'Music Concert-0', viewValue: 'Music Concert'},
-    {value: 'Exhibition-1', viewValue: 'Exhibition'},
-    {value: 'Drama-2', viewValue: 'Drama'},
-    {value: 'Festival-3', viewValue: 'Festival'}
+    {value: 'Music Concert', viewValue: 'Music Concert'},
+    {value: 'Exhibition', viewValue: 'Exhibition'},
+    {value: 'Drama', viewValue: 'Drama'},
+    {value: 'Festival', viewValue: 'Festival'}
   ];
 
   private mode='create';
