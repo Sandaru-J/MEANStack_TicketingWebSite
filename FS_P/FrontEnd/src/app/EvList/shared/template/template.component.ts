@@ -24,8 +24,17 @@ export class TemplateComponent implements OnInit,OnDestroy{
 
   this.evListService.ViewEvents().subscribe((res:any)=>{
     this.events=res.event;
-    console.log(this.events);
-  })
+    this.events = this.events.map((event:any) => {
+      return {
+              ...event,
+            //date: new Date(event.date).format('dd-mm-yyyy')
+          }
+
+  })})
+  }
+
+  onClickEvent(id:any){
+    console.log("clicked"+id);
   }
   ngOnDestroy(){
     this.eventSub.unsubscribe();

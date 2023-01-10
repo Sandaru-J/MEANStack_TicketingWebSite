@@ -13,6 +13,7 @@ import { ReactiveFormsModule } from '@angular/forms';
 import { MatDatepickerModule } from '@angular/material/datepicker';
 import { MatNativeDateModule } from '@angular/material/core';
 import { MatSelectModule } from '@angular/material/select';
+import { MatStepperModule } from '@angular/material/stepper';
 
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
@@ -29,6 +30,8 @@ import { MatInputModule } from '@angular/material/input';
 import { TemplateComponent } from './EvList/shared/template/template.component';
 import { ListViewComponent } from './EvList/root/list-view/list-view.component';
 import { EvListService } from './EvList/evList.service';
+import { BookingComponent } from './booking/booking.component';
+import { EvDataFormComponent } from './booking/ev-data-form/ev-data-form.component';
 
 
 @NgModule({
@@ -44,6 +47,8 @@ import { EvListService } from './EvList/evList.service';
     EventListComponent,
     TemplateComponent,
     ListViewComponent,
+    BookingComponent,
+    EvDataFormComponent,
 
   ],
   imports: [
@@ -61,7 +66,8 @@ import { EvListService } from './EvList/evList.service';
     ReactiveFormsModule,
     MatDatepickerModule,
     MatNativeDateModule,
-    MatSelectModule
+    MatSelectModule,
+    MatStepperModule
   ],
   providers: [],
   bootstrap: [AppComponent]
