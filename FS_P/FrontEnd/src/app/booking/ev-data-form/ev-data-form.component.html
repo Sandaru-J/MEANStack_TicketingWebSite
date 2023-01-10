@@ -1,0 +1,58 @@
+<section class="evbanner" *ngIf="event">
+  <div class="containers">
+    <div class="row">
+      <div class="col-6">
+        <mat-card class="example-card">
+          <!-- <mat-card-header>
+            <div mat-card-avatar class="example-header-image"></div>
+            <mat-card-title>Shiba Inu</mat-card-title>
+            <mat-card-subtitle>Dog Breed</mat-card-subtitle>
+          </mat-card-header> -->
+          <img mat-card-image [src]="event.imagePath" [alt]="event.title">
+
+          <!-- <mat-card-actions>
+            <button mat-button>LIKE</button>
+            <button mat-button>SHARE</button>
+          </mat-card-actions> -->
+        </mat-card>
+      </div>
+      <div class="col-4">
+        <mat-card>
+          <mat-card-content>
+            <mat-card-title>{{event.title}}</mat-card-title>
+            <mat-card-subtitle>{{event.organization}}</mat-card-subtitle>
+          </mat-card-content>
+          <mat-card class="crdPannel">
+            <h3 class="eventTopics">Theater/Venue</h3>
+            <h4>{{event.location}}</h4>
+          </mat-card>
+          <mat-card class="crdPannel">
+            <h3 class="eventTopics">Date</h3>
+            <h4>{{event.date}}</h4>
+          </mat-card>
+          <mat-card class="crdPannel">
+            <h3 class="eventTopics">Time</h3>
+            <h4>7.00PM</h4>
+          </mat-card>
+          <mat-card class="crdPannel">
+            <h3 class="eventTopics">Ticket Price</h3>
+            <h4>{{event.TicketP1}}.00 LKR</h4>
+          </mat-card>
+          <mat-accordion>
+            <mat-expansion-panel>
+              <mat-expansion-panel-header class="crdPannel">
+                Description
+              </mat-expansion-panel-header>
+              <mat-panel-description>
+                {{event.description}}
+              </mat-panel-description>
+            </mat-expansion-panel>
+          </mat-accordion>
+
+        </mat-card>
+      </div>
+    </div>
+  </div>
+</section>
+<app-booking></app-booking>
+
