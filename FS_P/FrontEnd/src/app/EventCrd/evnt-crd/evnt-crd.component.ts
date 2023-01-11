@@ -1,4 +1,6 @@
 import { Component, OnInit } from '@angular/core';
+import { EventService } from 'src/app/Admin/event/event.service';
+import { Event } from 'src/app/Admin/event/event.models';
 
 @Component({
   selector: 'app-evnt-crd',
@@ -7,9 +9,18 @@ import { Component, OnInit } from '@angular/core';
 })
 export class EvntCrdComponent implements OnInit {
 
-  constructor() { }
+  events: Event[] = [];
+  constructor( public evService:EventService) { }
+
 
   ngOnInit(): void {
+    this.getData();
+  }
+  getData() {
+    this.evService.getView(false).subscribe((response: any) => {
+      this.events=response.event;
+      console.log(response);
+    });
   }
   url1:string ="../assets/evntCrd1.jpg";
   imgChange1(event:any){
@@ -31,4 +42,6 @@ export class EvntCrdComponent implements OnInit {
     this.url4 = event.target.src;
     //console.log(event.target.src);
   }
+
+
 }

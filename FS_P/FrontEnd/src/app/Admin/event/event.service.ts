@@ -225,6 +225,9 @@ export class EventService {
     })
   }
 
+  getView(param: boolean){
+    return this.http.get<any>('http://localhost:3000/api/event', {params: {param}});
+  }
   deleteEvent(eventId:string){
     this.http.delete('http://localhost:3000/api/event/'+ eventId)
     .subscribe(()=>{

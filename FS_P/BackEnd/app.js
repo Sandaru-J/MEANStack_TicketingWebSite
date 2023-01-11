@@ -7,6 +7,7 @@ mongoose.set('strictQuery', false);
 const multer= require('multer');
 
 const Event = require('../BackEnd/models/event');
+const e = require('express');
 
 const app=express();
 
@@ -107,8 +108,30 @@ app.put('/api/event/:id',
     });
 });
 
+// app.get('/api/event',(req,res,next)=>{
+//     Event.find()
+//         .then(documents=>{
+//             console.log(documents);
+//             res.status(200).json({
+//                 message:'Event Added Sucessfully',
+//                 event:documents
+//             });
+//         });  
+// });
 app.get('/api/event',(req,res,next)=>{
-    Event.find()
+    const param = req.query.param;
+    console.log(param +' From Service')
+    if(param==true){
+        Event.find().sort({'timestamp':-1}).limit(4)
+        .then(documents=>{
+            console.log(documents);
+            res.status(200).json({
+                message:'Latest Events Added Sucessfully',
+                event:documents
+            });
+        });    
+    }else{      
+        Event.find()
         .then(documents=>{
             console.log(documents);
             res.status(200).json({
@@ -116,8 +139,10 @@ app.get('/api/event',(req,res,next)=>{
                 event:documents
             });
         });
+    }
     
 });
+
 app.get('/api/event/:id',(req,res,next)=>{
     Event.findOne({_id:req.params.id})
         .then(documents=>{
@@ -129,6 +154,13 @@ app.get('/api/event/:id',(req,res,next)=>{
         });
     
 });
+
+// app.get('/api/event',(req,res,next)=>{
+//     Event.find().sort({'timestamp':-1}).limit(4)
+//         .then(documents=>{
+//             console.log(documents);
+// });
+//});
 app.delete('/api/event/:id',(req,res,next)=>{
     Event.deleteOne({_id:req.params.id}).then(result=>{
         console.log(result);

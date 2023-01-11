@@ -23,14 +23,17 @@ export class TemplateComponent implements OnInit,OnDestroy{
   // });
 
   this.evListService.ViewEvents().subscribe((res:any)=>{
+    console.log(res);
     this.events=res.event;
     this.events = this.events.map((event:any) => {
+
       return {
               ...event,
             //date: new Date(event.date).format('dd-mm-yyyy')
           }
 
   })})
+
   }
 
   onClickEvent(id:any){
