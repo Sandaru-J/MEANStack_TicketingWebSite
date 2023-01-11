@@ -21,7 +21,6 @@ import { HeaderComponent } from './cl_header/header/header.component';
 import { EvntCrdComponent } from './EventCrd/evnt-crd/evnt-crd.component';
 import { CoverBannerComponent } from './coverLanding/cover-banner/cover-banner.component';
 import { FooterComponent } from './footer/footer/footer.component';
-import { LoginComponent } from './Admin/Login/login/login.component';
 import { EventCreateComponent } from './Admin/event/event-create/event-create.component';
 import { AdHeaderComponent } from './Admin/header/header.component';
 import { EventListComponent } from './Admin/event/event-list/event-list.component';
@@ -41,7 +40,6 @@ import { EvDataFormComponent } from './booking/ev-data-form/ev-data-form.compone
     EvntCrdComponent,
     CoverBannerComponent,
     FooterComponent,
-    LoginComponent,
     EventCreateComponent,
     AdHeaderComponent,
     EventListComponent,
