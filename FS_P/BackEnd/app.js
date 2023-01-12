@@ -8,6 +8,8 @@ const multer= require('multer');
 
 const Event = require('../BackEnd/models/event');
 
+const Booking= require('../BackEnd/models/booking');
+
 const app=express();
 
 mongoose.connect("mongodb+srv://SiteUser:nAxKdh83uoIeaWFc@cluster0.h9ytvqs.mongodb.net/?retryWrites=true&w=majority")
@@ -55,6 +57,24 @@ app.use((req,res,next) =>{
     );
     next();
   });
+  app.post('/api/booking',(req,res,next)=>{
+    console.log(req.body);
+    const booking = new Booking({
+        name: req.body.name,
+        email: req.body.email,
+        nic:req.body.nic,
+        address:req.body.address,
+        telephone:req.body.telephone,
+        total:req.body.total,
+        eventID:req.body.eventID,
+        eventName:req.body.eventName,
+        
+    });
+    booking.save()
+    res.status(201).json({
+        message:'Booking Addeded Successfully'
+    });
+});
 app.post('/api/event',multer({storage:storage}).single('image'),(req,res,next)=>{
     console.log(req.body);
     const imgUrl="http://localhost:3000/images/"+req.file.filename;
@@ -135,6 +155,8 @@ app.delete('/api/event/:id',(req,res,next)=>{
         res.status(200).json({message:'Post Deleted'});
     }) 
 });
+
+
 module.exports = app; 
 //nAxKdh83uoIeaWFc
 //mongodb+srv://SiteUser:<password>@cluster0.h9ytvqs.mongodb.net/?retryWrites=true&w=majority

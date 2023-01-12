@@ -3,6 +3,8 @@ import { Injectable } from '@angular/core';
 import { map, Subject } from 'rxjs';
 import { Event} from '..//Admin/event/event.models';
 import { Router } from "@angular/router";
+import { BkData } from './bookingdata.model';
+import { response } from 'express';
 
 @Injectable({
   providedIn: 'root'
@@ -40,5 +42,21 @@ export class evBookingService{
 
          }))
 
+   }
+   addBooking(name:string, email:string,nic:string,
+    address:string,telephone:string,noOfTickets:number,
+    total:number,eventID:string,eventName:string,){
+    const bookingData: BkData={
+      name: name, email: email, nic: nic,
+      address: address, telephone: telephone,
+      total: total, eventID, eventName,
+      noOfTickets:noOfTickets
+    }
+    this.http.post<{message:string}>("http://localhost:3000/api/booking",bookingData)
+    .subscribe((responseData)=>{
+      console.log(responseData.message);
+      //this.router.navigate(["/"]);
+      console.log(bookingData);
+    })
    }
 }

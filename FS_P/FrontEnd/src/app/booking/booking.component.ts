@@ -16,6 +16,9 @@ export class BookingComponent implements OnInit {
   total=0;
   private eventId: string;
   event:Event = null
+  eventName:string;
+  Ticket1:Number=null;
+
 
   showFormField = false;
   formFieldValue:any []=[];
@@ -23,10 +26,6 @@ export class BookingComponent implements OnInit {
   BookingForm!: FormGroup;
   imagePreview: string;
 
-  ticketPrices=[
-    {value: 2000, viewValue: 2000},
-    {value: 4000, viewValue: 4000},
-  ]
   bkData: any;
   @Input()
 
@@ -46,6 +45,7 @@ export class BookingComponent implements OnInit {
     this.BookingForm=new FormGroup({
       name:new FormControl(null,{validators:[Validators.required]}),
       'email':new FormControl(null,{validators:[Validators.required]}),
+      'nic':new FormControl(null,{validators:[Validators.required]}),
       'address':new FormControl(null,{validators:[Validators.required]}),
       'noOfTicket': new FormControl(null,{validators:[Validators.required]}),
       'telephone':new FormControl(null,{validators:[Validators.required]}),
@@ -59,27 +59,50 @@ export class BookingComponent implements OnInit {
         this.evBookingService.viewEvent(this.eventId).subscribe((res:any)=>{
           this.event=res.event;
           console.log(this.event);
+          this.eventName=this.event.title;
+          this.Ticket1=this.event.TicketP1;
+          console.log(this.event.TicketP1);
         });
       }
     });
   }
+  ticketPrices=[
+    {value: this.Ticket1, viewValue: this.Ticket1},
+    {value: 4000, viewValue: 4000},
+  ]
+
 
   cal(){
     this.total=this.BookingForm.value.noOfTicket*1500;
+  }
+
+  AddBooking(){
+    this.evBookingService.addBooking(
+      this.BookingForm.value.name,
+      this.BookingForm.value.email,
+      this.BookingForm.value.nic,
+      this.BookingForm.value.address,
+      this.BookingForm.value.telephone,
+      this.BookingForm.value.noOfTicket,
+      this.total,
+      this.eventId,
+      this.eventName
+
+      )
   }
 
   onClickProceed(){
     if(this.BookingForm.invalid){
       return
     }else{
-      const bkData:BkData = Object.assign(
-        {},
-        this.BookingForm.value,{
-        total:this.total}
-      );
+      // const bkData:BkData = Object.assign(
+      //   {},
+      //   this.BookingForm.value,{
+      //   total:this.total}
+      // );
 
-      console.log(bkData);
-
+      // console.log(bkData);
+      this.AddBooking();
     }
 
   }
