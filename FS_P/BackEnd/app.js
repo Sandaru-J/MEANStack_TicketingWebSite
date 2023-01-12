@@ -121,10 +121,11 @@ app.put('/api/event/:id',
 app.get('/api/event',(req,res,next)=>{
     const param = req.query.param;
     console.log(param +' From Service')
-    if(param==true){
+    if(param==='false'){
+        console.log('true')
         Event.find().sort({'timestamp':-1}).limit(4)
         .then(documents=>{
-            console.log(documents);
+            //console.log(documents);
             res.status(200).json({
                 message:'Latest Events Added Sucessfully',
                 event:documents
@@ -133,7 +134,7 @@ app.get('/api/event',(req,res,next)=>{
     }else{      
         Event.find()
         .then(documents=>{
-            console.log(documents);
+            //console.log(documents);
             res.status(200).json({
                 message:'Event Added Sucessfully',
                 event:documents
