@@ -46,6 +46,7 @@ export class BookingComponent implements OnInit {
     this.BookingForm=new FormGroup({
       name:new FormControl(null,{validators:[Validators.required]}),
       'email':new FormControl(null,{validators:[Validators.required]}),
+      'nic':new FormControl(null,{validators:[Validators.required]}),
       'address':new FormControl(null,{validators:[Validators.required]}),
       'noOfTicket': new FormControl(null,{validators:[Validators.required]}),
       'telephone':new FormControl(null,{validators:[Validators.required]}),
