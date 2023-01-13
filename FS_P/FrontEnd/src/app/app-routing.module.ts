@@ -7,6 +7,7 @@ import { EvntCrdComponent } from './EventCrd/evnt-crd/evnt-crd.component';
 import { FooterComponent } from './footer/footer/footer.component';
 import { EvDataFormComponent } from './booking/ev-data-form/ev-data-form.component';
 import { ListViewComponent } from './EvList/root/list-view/list-view.component';
+import { PaypalComponent } from './paypal/paypal.component';
 
 const routes: Routes = [
   // {path:'',component:FooterComponent},
@@ -16,7 +17,8 @@ const routes: Routes = [
   { path: 'event-create',component:EventCreateComponent},
   { path: 'event-list' , component:EventListComponent},
   { path: 'edit/:eventId', component:EventCreateComponent},
-  { path: 'booking/:eventId',component:EvDataFormComponent}
+  { path: 'booking/:eventId',component:EvDataFormComponent},
+  { path: 'paypal', component:PaypalComponent}
 ];
 
 @NgModule({

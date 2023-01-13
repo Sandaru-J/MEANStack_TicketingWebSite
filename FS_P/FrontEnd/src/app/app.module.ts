@@ -14,6 +14,7 @@ import { MatDatepickerModule } from '@angular/material/datepicker';
 import { MatNativeDateModule } from '@angular/material/core';
 import { MatSelectModule } from '@angular/material/select';
 import { MatStepperModule } from '@angular/material/stepper';
+import { NgxPayPalModule } from 'ngx-paypal';
 
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
@@ -32,6 +33,7 @@ import { ListViewComponent } from './EvList/root/list-view/list-view.component';
 import { EvListService } from './EvList/evList.service';
 import { BookingComponent } from './booking/booking.component';
 import { EvDataFormComponent } from './booking/ev-data-form/ev-data-form.component';
+import { PaypalComponent } from './paypal/paypal.component';
 
 
 @NgModule({
@@ -49,6 +51,8 @@ import { EvDataFormComponent } from './booking/ev-data-form/ev-data-form.compone
     ListViewComponent,
     BookingComponent,
     EvDataFormComponent,
+    PaypalComponent,
+
 
   ],
   imports: [
@@ -67,7 +71,8 @@ import { EvDataFormComponent } from './booking/ev-data-form/ev-data-form.compone
     MatDatepickerModule,
     MatNativeDateModule,
     MatSelectModule,
-    MatStepperModule
+    MatStepperModule,
+    NgxPayPalModule
   ],
   providers: [],
   bootstrap: [AppComponent]

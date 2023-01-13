@@ -1,9 +1,10 @@
 import { Component, Input, OnInit } from '@angular/core';
-import { ActivatedRoute,ParamMap  } from '@angular/router';
+import { ActivatedRoute,ParamMap, Router, RouterLink  } from '@angular/router';
 import { evBookingService } from '..//booking/evBooking.service';
 import { Event } from 'src/app/Admin/event/event.models';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { BkData } from './bookingdata.model';
+import { IPayPalConfig } from 'ngx-paypal';
 
 @Component({
   selector: 'app-booking',
@@ -27,6 +28,7 @@ export class BookingComponent implements OnInit {
   imagePreview: string;
 
   bkData: any;
+payPalConfig: IPayPalConfig;
   @Input()
 
   toggleFormFields() {
@@ -38,7 +40,7 @@ export class BookingComponent implements OnInit {
   removeFormFields(i: number) {
     this.formFieldValue.splice(i, 1);
   }
-  constructor(public evBookingService:evBookingService,public route:ActivatedRoute) { }
+  constructor(public evBookingService:evBookingService,public route:ActivatedRoute,private router:Router) { }
 
   ngOnInit(): void {
 
@@ -103,8 +105,12 @@ export class BookingComponent implements OnInit {
 
       // console.log(bkData);
       this.AddBooking();
+      this.router.navigate(['/paypal'])
     }
+  }
 
+  sendBkData(){
+    return this.BookingForm.value;
   }
 
 }
