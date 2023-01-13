@@ -1,9 +1,10 @@
 import { Component, Input, OnInit } from '@angular/core';
-import { ActivatedRoute,ParamMap  } from '@angular/router';
+import { ActivatedRoute,ParamMap, Router, RouterLink  } from '@angular/router';
 import { evBookingService } from '..//booking/evBooking.service';
 import { Event } from 'src/app/Admin/event/event.models';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { BkData } from './bookingdata.model';
+import { IPayPalConfig } from 'ngx-paypal';
 
 @Component({
   selector: 'app-booking',
@@ -16,6 +17,9 @@ export class BookingComponent implements OnInit {
   total=0;
   private eventId: string;
   event:Event = null
+  eventName:string;
+  Ticket1:Number=null;
+
 
   showFormField = false;
   formFieldValue:any []=[];
@@ -23,11 +27,8 @@ export class BookingComponent implements OnInit {
   BookingForm!: FormGroup;
   imagePreview: string;
 
-  ticketPrices=[
-    {value: 2000, viewValue: 2000},
-    {value: 4000, viewValue: 4000},
-  ]
   bkData: any;
+payPalConfig: IPayPalConfig;
   @Input()
 
   toggleFormFields() {
@@ -39,13 +40,14 @@ export class BookingComponent implements OnInit {
   removeFormFields(i: number) {
     this.formFieldValue.splice(i, 1);
   }
-  constructor(public evBookingService:evBookingService,public route:ActivatedRoute) { }
+  constructor(public evBookingService:evBookingService,public route:ActivatedRoute,private router:Router) { }
 
   ngOnInit(): void {
 
     this.BookingForm=new FormGroup({
       name:new FormControl(null,{validators:[Validators.required]}),
       'email':new FormControl(null,{validators:[Validators.required]}),
+      'nic':new FormControl(null,{validators:[Validators.required]}),
       'address':new FormControl(null,{validators:[Validators.required]}),
       'noOfTicket': new FormControl(null,{validators:[Validators.required]}),
       'telephone':new FormControl(null,{validators:[Validators.required]}),
@@ -59,29 +61,56 @@ export class BookingComponent implements OnInit {
         this.evBookingService.viewEvent(this.eventId).subscribe((res:any)=>{
           this.event=res.event;
           console.log(this.event);
+          this.eventName=this.event.title;
+          this.Ticket1=this.event.TicketP1;
+          console.log(this.event.TicketP1);
         });
       }
     });
   }
+  ticketPrices=[
+    {value: this.Ticket1, viewValue: this.Ticket1},
+    {value: 4000, viewValue: 4000},
+  ]
+
 
   cal(){
     this.total=this.BookingForm.value.noOfTicket*1500;
+  }
+
+  AddBooking(){
+    this.evBookingService.addBooking(
+      this.BookingForm.value.name,
+      this.BookingForm.value.email,
+      this.BookingForm.value.nic,
+      this.BookingForm.value.address,
+      this.BookingForm.value.telephone,
+      this.BookingForm.value.noOfTicket,
+      this.total,
+      this.eventId,
+      this.eventName
+
+      )
   }
 
   onClickProceed(){
     if(this.BookingForm.invalid){
       return
     }else{
-      const bkData:BkData = Object.assign(
-        {},
-        this.BookingForm.value,{
-        total:this.total}
-      );
+      // const bkData:BkData = Object.assign(
+      //   {},
+      //   this.BookingForm.value,{
+      //   total:this.total}
+      // );
 
-      console.log(bkData);
-
+      // console.log(bkData);
+      this.AddBooking();
+      this.router.navigate(['/paypal'])
     }
+  }
 
+  sendBkData(){
+    return this.BookingForm.value;
   }
 
 }
