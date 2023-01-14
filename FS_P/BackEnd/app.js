@@ -3,12 +3,15 @@ const bodyParser=require('body-parser');
 const mongoose = require('mongoose');
 const path = require('path')
 mongoose.set('strictQuery', false);
+const sendMail = require('../BackEnd/sendMail');
 
 const multer= require('multer');
 
 const Event = require('../BackEnd/models/event');
-
 const Booking= require('../BackEnd/models/booking');
+const Customer= require('../BackEnd/models/cutomer');
+
+const { info } = require('console');
 
 const app=express();
 
@@ -57,8 +60,10 @@ app.use((req,res,next) =>{
     );
     next();
   });
-  app.post('/api/booking',(req,res,next)=>{
-    console.log(req.body);
+    app.post('/api/booking',async(req,res,next)=>{
+    //console.log(req.body);
+    try{
+        
     const booking = new Booking({
         name: req.body.name,
         email: req.body.email,
@@ -70,13 +75,39 @@ app.use((req,res,next) =>{
         eventName:req.body.eventName,
         
     });
-    booking.save()
-    res.status(201).json({
-        message:'Booking Addeded Successfully'
-    });
+    await booking.save()
+        const data={email:req.body.email,
+            name:req.body.name,
+            total:req.body.total,
+            eventID:req.body.eventID,
+            eventName:req.body.eventName
+        };
+        const customer = new Customer({
+            name: req.body.name,
+            email: req.body.email,
+            nic:req.body.nic,
+            telephone:req.body.telephone,   
+        });
+        await customer.save()
+        res.status(201).json({
+            message:'Customer Added Successfully'
+        });
+        await sendMail(data,info => {
+            console.log('Message sent');
+            console.log(info);this
+        });
+        res.status(201).json({
+            message:'Booking Addeded Successfully'
+        
+        });
+    }catch(error){
+        console.log(error);
+        res.status(500).json({message:'Internal Server Error'});
+    }
+    
 });
-app.post('/api/event',multer({storage:storage}).single('image'),(req,res,next)=>{
-    console.log(req.body);
+app.post('/api/event',multer({storage:storage}).single('image'),async(req,res,next)=>{
+    //console.log(req.body);
     const imgUrl="http://localhost:3000/images/"+req.file.filename;
     console.log(imgUrl)
     const event = new Event({
@@ -92,11 +123,26 @@ app.post('/api/event',multer({storage:storage}).single('image'),(req,res,next)=>
         description:req.body.description,
         imagePath:imgUrl
     });
-    event.save()
+    await event.save()
     res.status(201).json({
         message:'Event Addeded Successfully'
     });
 });
+
+// app.post('/api/customer',(req,res,next)=>{
+//     console.log('api reading');
+//     const customer = new Customer({
+//         name: req.body.name,
+//         email: req.body.email,
+//         nic:req.body.nic,
+//         telephone:req.body.telephone,   
+//     });
+//     customer.save()
+//     res.status(201).json({
+//         message:'Customer Added Successfully'
+//     });
+// });
+
 
 app.put('/api/event/:id',
     multer({storage:storage}).single('image'),(req,res,next)=>{
@@ -155,6 +201,21 @@ app.delete('/api/event/:id',(req,res,next)=>{
         res.status(200).json({message:'Post Deleted'});
     }) 
 });
+
+// app.post('/api/sendmail',async (req,res)=>{
+//     console.log('does it')
+//     const data=req.body;
+//     console.log(data)
+//     try{
+//         await sendMail(data,info => {
+//             console.log('Message sent');
+//         });
+//         res.status(200).json({message:'Email Sent'});
+//     }catch(error){
+//         console.log(error);
+//         res.status(500).json({message:'Internal Server Error'});
+//     }
+// });
 
 
 module.exports = app; 
