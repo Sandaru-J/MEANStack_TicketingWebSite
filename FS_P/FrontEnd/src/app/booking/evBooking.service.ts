@@ -68,12 +68,15 @@ export class evBookingService{
     console.log('came to send mail');
     // this.bookingts.sendBkData().subscribe((res:any)=>{
     //   console.log(res);
-    //})
+    // })
 
     let user = {
       name: 'Bosa',
       email: 'jayathilaka19fx@gmail.com',
     }
+    return this.http.post('http://localhost:3000/api/sendmail', user).subscribe((res:any)=>{
+      console.log(user);
+    })
   }
 
 }

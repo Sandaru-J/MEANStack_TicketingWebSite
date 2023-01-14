@@ -3,12 +3,14 @@ const bodyParser=require('body-parser');
 const mongoose = require('mongoose');
 const path = require('path')
 mongoose.set('strictQuery', false);
+const sendMail = require('../BackEnd/sendMail');
 
 const multer= require('multer');
 
 const Event = require('../BackEnd/models/event');
 
 const Booking= require('../BackEnd/models/booking');
+const { info } = require('console');
 
 const app=express();
 
@@ -154,6 +156,15 @@ app.delete('/api/event/:id',(req,res,next)=>{
         console.log(result);
         res.status(200).json({message:'Post Deleted'});
     }) 
+});
+
+app.post('/api/sendmail',async (req,res)=>{
+    console.log('does it')
+    const data=req.body;
+    console.log(data)
+    await sendMail(data,info => {
+        console.log('Message sent');
+    });
 });
 
 
