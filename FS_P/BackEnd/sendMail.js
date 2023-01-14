@@ -1,7 +1,7 @@
 const express=require('express');
 const nodemailer = require('nodemailer');
 
-async function sendMail(email,Callback){
+async function sendMail(user,Callback){
     let transporter = nodemailer.createTransport({
         service: 'gmail',
         host: 'smtp.gmail.com',
@@ -17,9 +17,9 @@ async function sendMail(email,Callback){
 
     let mailOptions = {
         from: "ketchupfoods@gmail.com",
-        to: email,
+        to: user.email,
         subject: "Ticked Booked",
-        html: `<b>Hello , <br>Your order has been placed succesfully.<br>Amount : </b>`
+        html: `<b>Hello ,${user.name} <br>Your order has been placed succesfully.<br>Amount : </b>`
     };
     let info=await transporter.sendMail(mailOptions);
     Callback(info);

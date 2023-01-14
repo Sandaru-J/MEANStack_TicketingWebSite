@@ -20,6 +20,7 @@ export class PaypalComponent implements OnInit {
 
   ngOnInit(): void {
     this.initConfig();
+
   }
 
   // ReqTotal():void{
@@ -78,7 +79,7 @@ export class PaypalComponent implements OnInit {
         },
         onCancel: (data, actions) => {
             console.log('OnCancel', data, actions);
-            this.evBookingService.sendMail();
+            this.evBookingService.addBooking()
 
         },
         onError: err => {
