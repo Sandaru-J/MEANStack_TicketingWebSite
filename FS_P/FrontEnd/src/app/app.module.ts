@@ -33,6 +33,7 @@ import { EvListService } from './EvList/evList.service';
 import { BookingComponent } from './booking/booking.component';
 import { EvDataFormComponent } from './booking/ev-data-form/ev-data-form.component';
 import { PaypalComponent } from './paypal/paypal.component';
+import { LoginComponent } from './Admin/login/login.component';
 
 
 @NgModule({
@@ -50,6 +51,7 @@ import { PaypalComponent } from './paypal/paypal.component';
     BookingComponent,
     EvDataFormComponent,
     PaypalComponent,
+    LoginComponent,
 
 
   ],
