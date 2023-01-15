@@ -6,7 +6,7 @@ before_install:
   - cd FS_P
   - cd BackEnd
 install:
-  - npm install
+  - npm install --verbose
 cache:
   directories:
     - node_modules
