@@ -18,8 +18,9 @@ async function sendMail(user,Callback){
     let mailOptions = {
         from: "ketchupfoods@gmail.com",
         to: user.email,
-        subject: "Ticked Booked",
-        html: `<b>Hello ,${user.name} <br>Your order has been placed succesfully.<br>Amount : </b>`
+        subject: "Tickets Booked for "+user.eventName,
+        html: `<b>Hello ,${user.name} <br>Your Booking has been placed succesfully for ${user.eventName}.<br>
+        Your Booking ID is ${user.eventId} <br>Amount : ${user.total}</b>`
     };
     let info=await transporter.sendMail(mailOptions);
     Callback(info);
