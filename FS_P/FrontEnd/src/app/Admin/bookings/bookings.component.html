@@ -1,0 +1,23 @@
+<div class="container">
+  <mat-accordion multi="true">
+    <mat-expansion-panel *ngFor="let booking of bookings">
+      <mat-expansion-panel-header>
+           {{ booking.eventName }}
+         <!-- <mat-panel-description>
+          This is a summary of the content
+        </mat-panel-description> -->
+      </mat-expansion-panel-header>
+       <p>{{ booking.eventID }}</p>
+       <p>{{ booking.name }}</p>
+       <p>{{ booking.email }}</p>
+       <p>{{ booking.nic }}</p>
+       <p>{{ booking.telephone }}</p>
+       <p>{{ booking.total }}.00 LKR</p>
+       <mat-action-row>
+        <button mat-button color="warn" (click)="onDelete(booking.eventID)">Delete</button>
+       </mat-action-row>
+    </mat-expansion-panel>
+  </mat-accordion>
+</div>
+
+<p class="info-text mat-body-1" *ngIf="bookings.length<=0"> No Events added yet</p>

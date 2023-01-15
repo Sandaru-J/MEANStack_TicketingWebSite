@@ -156,6 +156,26 @@ app.delete('/api/event/:id',(req,res,next)=>{
     }) 
 });
 
+app.get('/api/booking',(req,res,next)=>{
+    Booking.find()
+        .then(documents=>{
+            console.log(documents);
+            res.status(200).json({
+                message:'Booking Feteched Sucessfully',
+                booking:documents
+            });
+        });
+    
+});
+
+app.delete('/api/booking/:eventID',(req,res,next)=>{
+    Booking.deleteOne({eventID:req.params.eventID}).then(result=>{
+        console .log(result);
+        res.status(200).json({message:'Booking Deleted'});
+    }
+    )
+})
+
 
 module.exports = app; 
 //nAxKdh83uoIeaWFc
