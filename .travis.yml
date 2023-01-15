@@ -1,8 +1,10 @@
+---
 language: node_js
 node_js:
   - 18
 before_install:
-  - cd FS_P/BackEnd
+  - cd FS_P
+  - cd BackEnd
 install:
   - npm install
 cache:
