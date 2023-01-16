@@ -78,19 +78,6 @@ payPalConfig: IPayPalConfig;
     this.total=this.BookingForm.value.noOfTicket*1500;
   }
 
-  AddBooking(){
-    // this.evBookingService.addBooking(
-    //   this.BookingForm.value.name,
-    //   this.BookingForm.value.email,
-    //   this.BookingForm.value.nic,
-    //   this.BookingForm.value.address,
-    //   this.BookingForm.value.telephone,
-    //   this.BookingForm.value.noOfTicket,
-    //   this.total,
-    //   this.eventId,
-    //   this.eventName
-    //   )
-  }
 
   AddCustomer(){
     this.evBookingService.addCustomer(
@@ -100,6 +87,7 @@ payPalConfig: IPayPalConfig;
       this.BookingForm.value.telephone,
       )
   }
+
 
   onClickProceed(){
     if(this.BookingForm.invalid){
@@ -112,13 +100,25 @@ payPalConfig: IPayPalConfig;
       // );
 
       // console.log(bkData);
+
+
+
     this.evBookingService.setFormData(this.BookingForm.value,this.eventId,this.total,this.eventName);
       this.router.navigate(['/paypal'])
+
     }
   }
+
 
   sendBkData(){
     return this.BookingForm.value;
   }
 
+
+
+
+  }
+function sendTicket() {
+  throw new Error('Function not implemented.');
 }
+
