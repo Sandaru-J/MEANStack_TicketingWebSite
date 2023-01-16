@@ -14,6 +14,7 @@ import { MatDatepickerModule } from '@angular/material/datepicker';
 import { MatNativeDateModule } from '@angular/material/core';
 import { MatSelectModule } from '@angular/material/select';
 import { MatStepperModule } from '@angular/material/stepper';
+import { NgxPayPalModule } from 'ngx-paypal';
 
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
@@ -21,7 +22,6 @@ import { HeaderComponent } from './cl_header/header/header.component';
 import { EvntCrdComponent } from './EventCrd/evnt-crd/evnt-crd.component';
 import { CoverBannerComponent } from './coverLanding/cover-banner/cover-banner.component';
 import { FooterComponent } from './footer/footer/footer.component';
-import { LoginComponent } from './Admin/Login/login/login.component';
 import { EventCreateComponent } from './Admin/event/event-create/event-create.component';
 import { AdHeaderComponent } from './Admin/header/header.component';
 import { EventListComponent } from './Admin/event/event-list/event-list.component';
@@ -32,6 +32,8 @@ import { ListViewComponent } from './EvList/root/list-view/list-view.component';
 import { EvListService } from './EvList/evList.service';
 import { BookingComponent } from './booking/booking.component';
 import { EvDataFormComponent } from './booking/ev-data-form/ev-data-form.component';
+import { PaypalComponent } from './paypal/paypal.component';
+import { LoginComponent } from './Admin/login/login.component';
 
 
 @NgModule({
@@ -41,7 +43,6 @@ import { EvDataFormComponent } from './booking/ev-data-form/ev-data-form.compone
     EvntCrdComponent,
     CoverBannerComponent,
     FooterComponent,
-    LoginComponent,
     EventCreateComponent,
     AdHeaderComponent,
     EventListComponent,
@@ -49,6 +50,9 @@ import { EvDataFormComponent } from './booking/ev-data-form/ev-data-form.compone
     ListViewComponent,
     BookingComponent,
     EvDataFormComponent,
+    PaypalComponent,
+    LoginComponent,
+
 
   ],
   imports: [
@@ -67,7 +71,8 @@ import { EvDataFormComponent } from './booking/ev-data-form/ev-data-form.compone
     MatDatepickerModule,
     MatNativeDateModule,
     MatSelectModule,
-    MatStepperModule
+    MatStepperModule,
+    NgxPayPalModule
   ],
   providers: [],
   bootstrap: [AppComponent]

@@ -55,8 +55,10 @@
           <div class="col-md-3" *ngFor="let event of events">
               <div class="card">
                   <div class="card-main">
+
                       <div class="discount">{{event.organization}}</div>
                       <div class="label label-green">{{event.category}}</div>
+
                       <!-- <div class="EventContainer">
                           <div class="p" (mouseover)="imgChange1($event)"><img src="../assets/evntCrd1.jpg"
                                   alt="Product"></div>
@@ -66,7 +68,9 @@
                                   alt="Product"></div>
                       </div> -->
                       <div class="image">
+
                           <img [src]='event.imagePath' alt="Product">
+
                       </div>
                       <div class="cart-line"></div>
                       <div class="cart-item">
@@ -85,6 +89,7 @@
                   </div>
               </div>
           </div>
+
     </div>
   </div>
 </section>

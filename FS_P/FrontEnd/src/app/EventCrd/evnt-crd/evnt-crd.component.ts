@@ -22,6 +22,7 @@ export class EvntCrdComponent implements OnInit {
       console.log(response);
     });
   }
+
   url1:string ="../assets/evntCrd1.jpg";
   imgChange1(event:any){
     this.url1 = event.target.src;
@@ -42,6 +43,7 @@ export class EvntCrdComponent implements OnInit {
     this.url4 = event.target.src;
     //console.log(event.target.src);
   }
+
 
 
 }
