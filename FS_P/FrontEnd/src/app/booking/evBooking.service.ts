@@ -12,6 +12,7 @@ import { BookingComponent } from './booking.component';
 })
 export class evBookingService{
   private events:Event[]=[];
+  bookingData :BkData | null = null;
   BookingTotal:Number=0;
   constructor(private http:HttpClient,private router:Router){}
 
@@ -44,36 +45,57 @@ export class evBookingService{
   //        }))
 
   //  }
-   addBooking(name:string, email:string,nic:string,
-    address:string,telephone:string,noOfTickets:number,
-    total:number,eventID:string,eventName:string,){
-    const bookingData: BkData={
-      name: name, email: email, nic: nic,
-      address: address, telephone: telephone,
-      total: total, eventID, eventName,
-      noOfTickets:noOfTickets
-    }
-    this.http.post<{message:string}>("http://localhost:3000/api/booking",bookingData)
+
+  //  addBooking(name:string, email:string,nic:string,
+  //   address:string,telephone:string,noOfTickets:number,
+  //   total:number,eventID:string,eventName:string,){
+  //   const bookingData: BkData={
+  //     name: name, email: email, nic: nic,
+  //     address: address, telephone: telephone,
+  //     total: total, eventID, eventName,
+  //     noOfTickets:noOfTickets
+  //   }
+  //   this.http.post<{message:string}>("http://localhost:3000/api/booking",bookingData)
+  //   .subscribe((responseData)=>{
+  //     console.log(responseData.message);
+  //     //this.router.navigate(["/"]);
+  //     //console.log(bookingData);
+  //   })
+  //   this.BookingTotal=bookingData.total;
+  //  }
+   addBooking(){
+
+    this.http.post<{message:string}>("http://localhost:3000/api/booking",this.bookingData)
     .subscribe((responseData)=>{
       console.log(responseData.message);
       //this.router.navigate(["/"]);
-      console.log(bookingData);
+      //console.log(bookingData);
     })
-    this.BookingTotal=bookingData.total;
+    this.BookingTotal=this.bookingData.total;
    }
+
+   addCustomer(name:string, email:string,nic:string,
+    telephone:string){
+      const customerData={
+        name: name, email: email, nic: nic,
+        telephone: telephone
+      }
+      this.http.post<{message:string}>("http://localhost:3000/api/customer",customerData)
+      .subscribe((responseData)=>{
+        console.log(responseData.message);
+        console.log(customerData);
+      })
+    }
    getBookingTotal() {
     return this.BookingTotal;
   }
-  sendMail(){
-    console.log('came to send mail');
-    // this.bookingts.sendBkData().subscribe((res:any)=>{
-    //   console.log(res);
-    //})
 
-    let user = {
-      name: 'Bosa',
-      email: 'jayathilaka19fx@gmail.com',
-    }
-  }
+setFormData(data:BkData,eventId:string,total:Number,eventName:string){
+  this.bookingData=data;
+  this.bookingData.total=total;
+  this.bookingData.eventID=eventId;
+  this.bookingData.eventName=eventName;
+}
+
 
 }

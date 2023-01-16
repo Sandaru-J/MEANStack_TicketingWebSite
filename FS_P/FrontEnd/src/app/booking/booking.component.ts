@@ -15,7 +15,7 @@ export class BookingComponent implements OnInit {
 
   //BkData:BkData[]=[];
   total=0;
-  private eventId: string;
+  eventId: string;
   event:Event = null
   eventName:string;
   Ticket1:Number=null;
@@ -78,20 +78,16 @@ payPalConfig: IPayPalConfig;
     this.total=this.BookingForm.value.noOfTicket*1500;
   }
 
-  AddBooking(){
-    this.evBookingService.addBooking(
+
+  AddCustomer(){
+    this.evBookingService.addCustomer(
       this.BookingForm.value.name,
       this.BookingForm.value.email,
       this.BookingForm.value.nic,
-      this.BookingForm.value.address,
       this.BookingForm.value.telephone,
-      this.BookingForm.value.noOfTicket,
-      this.total,
-      this.eventId,
-      this.eventName
-
       )
   }
+
 
   onClickProceed(){
     if(this.BookingForm.invalid){
@@ -104,13 +100,25 @@ payPalConfig: IPayPalConfig;
       // );
 
       // console.log(bkData);
-      this.AddBooking();
+
+
+
+    this.evBookingService.setFormData(this.BookingForm.value,this.eventId,this.total,this.eventName);
       this.router.navigate(['/paypal'])
+
     }
   }
+
 
   sendBkData(){
     return this.BookingForm.value;
   }
 
+
+
+
+  }
+function sendTicket() {
+  throw new Error('Function not implemented.');
 }
+

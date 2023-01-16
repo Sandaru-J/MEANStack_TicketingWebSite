@@ -3,12 +3,17 @@ const bodyParser=require('body-parser');
 const mongoose = require('mongoose');
 const path = require('path')
 mongoose.set('strictQuery', false);
+const sendMail = require('../BackEnd/sendMail');
 
 const multer= require('multer');
 
 const Event = require('../BackEnd/models/event');
 
 const Booking= require('../BackEnd/models/booking');
+const Customer= require('../BackEnd/models/cutomer');
+
+const { info } = require('console');
+
 
 const app=express();
 
@@ -57,8 +62,10 @@ app.use((req,res,next) =>{
     );
     next();
   });
-  app.post('/api/booking',(req,res,next)=>{
-    console.log(req.body);
+    app.post('/api/booking',async(req,res,next)=>{
+    //console.log(req.body);
+    try{
+        
     const booking = new Booking({
         name: req.body.name,
         email: req.body.email,
@@ -70,13 +77,39 @@ app.use((req,res,next) =>{
         eventName:req.body.eventName,
         
     });
-    booking.save()
-    res.status(201).json({
-        message:'Booking Addeded Successfully'
-    });
+    await booking.save()
+        const data={email:req.body.email,
+            name:req.body.name,
+            total:req.body.total,
+            eventID:req.body.eventID,
+            eventName:req.body.eventName
+        };
+        res.status(201).json({
+            message:'Booking Addeded Successfully'
+        });
+        const customer = new Customer({
+            name: req.body.name,
+            email: req.body.email,
+            nic:req.body.nic,
+            telephone:req.body.telephone,   
+        });
+        await customer.save()
+        res.status(201).json({
+            message:'Customer Added Successfully'
+        });
+        await sendMail(data,info => {
+            console.log('Message sent');
+            console.log(info);this
+        });
+        
+    }catch(error){
+        console.log(error);
+        res.status(500).json({message:'Internal Server Error'});
+    }
+    
 });
-app.post('/api/event',multer({storage:storage}).single('image'),(req,res,next)=>{
-    console.log(req.body);
+app.post('/api/event',multer({storage:storage}).single('image'),async(req,res,next)=>{
+    //console.log(req.body);
     const imgUrl="http://localhost:3000/images/"+req.file.filename;
     console.log(imgUrl)
     const event = new Event({
@@ -92,11 +125,26 @@ app.post('/api/event',multer({storage:storage}).single('image'),(req,res,next)=>
         description:req.body.description,
         imagePath:imgUrl
     });
-    event.save()
+    await event.save()
     res.status(201).json({
         message:'Event Addeded Successfully'
     });
 });
+
+// app.post('/api/customer',(req,res,next)=>{
+//     console.log('api reading');
+//     const customer = new Customer({
+//         name: req.body.name,
+//         email: req.body.email,
+//         nic:req.body.nic,
+//         telephone:req.body.telephone,   
+//     });
+//     customer.save()
+//     res.status(201).json({
+//         message:'Customer Added Successfully'
+//     });
+// });
+
 
 app.put('/api/event/:id',
     multer({storage:storage}).single('image'),(req,res,next)=>{
@@ -127,17 +175,42 @@ app.put('/api/event/:id',
     });
 });
 
+// app.get('/api/event',(req,res,next)=>{
+//     Event.find()
+//         .then(documents=>{
+//             console.log(documents);
+//             res.status(200).json({
+//                 message:'Event Added Sucessfully',
+//                 event:documents
+//             });
+//         });  
+// });
 app.get('/api/event',(req,res,next)=>{
-    Event.find()
+    const param = req.query.param;
+    console.log(param +' From Service')
+    if(param==='false'){
+        console.log('true')
+        Event.find().sort({'timestamp':-1}).limit(4)
         .then(documents=>{
-            console.log(documents);
+            //console.log(documents);
+            res.status(200).json({
+                message:'Latest Events Added Sucessfully',
+                event:documents
+            });
+        });    
+    }else{      
+        Event.find()
+        .then(documents=>{
+            //console.log(documents);
             res.status(200).json({
                 message:'Event Added Sucessfully',
                 event:documents
             });
         });
+    }
     
 });
+
 app.get('/api/event/:id',(req,res,next)=>{
     Event.findOne({_id:req.params.id})
         .then(documents=>{
@@ -149,12 +222,20 @@ app.get('/api/event/:id',(req,res,next)=>{
         });
     
 });
+
+// app.get('/api/event',(req,res,next)=>{
+//     Event.find().sort({'timestamp':-1}).limit(4)
+//         .then(documents=>{
+//             console.log(documents);
+// });
+//});
 app.delete('/api/event/:id',(req,res,next)=>{
     Event.deleteOne({_id:req.params.id}).then(result=>{
         console.log(result);
         res.status(200).json({message:'Post Deleted'});
     }) 
 });
+
 
 app.get('/api/booking',(req,res,next)=>{
     Booking.find()
@@ -175,6 +256,21 @@ app.delete('/api/booking/:eventID',(req,res,next)=>{
     }
     )
 })
+// app.post('/api/sendmail',async (req,res)=>{
+//     console.log('does it')
+//     const data=req.body;
+//     console.log(data)
+//     try{
+//         await sendMail(data,info => {
+//             console.log('Message sent');
+//         });
+//         res.status(200).json({message:'Email Sent'});
+//     }catch(error){
+//         console.log(error);
+//         res.status(500).json({message:'Internal Server Error'});
+//     }
+// });
+
 
 
 module.exports = app; 
