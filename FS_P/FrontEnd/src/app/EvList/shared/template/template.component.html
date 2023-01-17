@@ -15,18 +15,18 @@
                               alt="Product"></div> -->
                   </div>
                   <div class="image">
-                      <img [src]="event.imagePath" [alt]="event.title"  [routerLink]="['/booking',event._id]">
+                      <img [src]="event.imagePath" [alt]="event.title"  >
                   </div>
                   <div class="cart-line"></div>
-                  <div class="cart-item">
+                  <div class="cart-item" >
                       <ul>
-                          <li ><a href=""><i class="fa fa-shopping-basket" ></i></a></li>
+                          <li ><a [routerLink]="['/booking',event._id]"><i class="fa fa-shopping-basket" ></i></a></li>
                           <!-- <li><a href=""><i class="fa fa-heart"></i></a></li> -->
                       </ul>
                   </div>
               </div>
               <div class="content">
-                <p><span class="priceL">{{event.date}} LKR</span></p>
+                <p><span class="priceL">{{event.date | date:'dd/MM/yyyy'}}</span></p>
                   <a href="javascript:void(0);">{{event.title}}</a>
                   <p><span class="priceL">{{event.TicketP1}} LKR</span>
                     <!-- <span style="font-size:16px;color: chocolate;font-style: italic;"> to </span><span class="priceH">10000LKR</span> -->

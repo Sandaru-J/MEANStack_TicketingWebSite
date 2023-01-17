@@ -15,6 +15,7 @@ export class PaypalComponent implements OnInit {
 
   public payPalConfig?: IPayPalConfig;
   total: any=1000;
+  bkData: any;
 
   constructor(private evBookingService:evBookingService) { }
 
@@ -30,6 +31,14 @@ export class PaypalComponent implements OnInit {
   //     console.log(this.total);
   //   });
   //}
+
+  //req data from booking
+  ReqData():void{
+    this.evBookingService.getBookingTotal()
+      this.bkData.total=this.total;
+      console.log(this.bkData);
+  }
+
   private initConfig(): void {
     this.payPalConfig = {
         currency: 'USD',

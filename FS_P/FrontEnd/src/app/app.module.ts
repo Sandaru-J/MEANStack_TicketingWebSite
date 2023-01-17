@@ -15,6 +15,7 @@ import { MatNativeDateModule } from '@angular/material/core';
 import { MatSelectModule } from '@angular/material/select';
 import { MatStepperModule } from '@angular/material/stepper';
 import { NgxPayPalModule } from 'ngx-paypal';
+import { MatIconModule } from '@angular/material/icon';
 
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
@@ -35,6 +36,8 @@ import { EvDataFormComponent } from './booking/ev-data-form/ev-data-form.compone
 import { PaypalComponent } from './paypal/paypal.component';
 import { LoginComponent } from './Admin/login/login.component';
 import { BookingsComponent } from './Admin/bookings/bookings.component';
+import { SucessComponent } from './reponses/sucess/sucess.component';
+import { HomeComponent } from './Admin/home/home.component';
 
 
 @NgModule({
@@ -54,6 +57,8 @@ import { BookingsComponent } from './Admin/bookings/bookings.component';
     PaypalComponent,
     LoginComponent,
     BookingsComponent,
+    SucessComponent,
+    HomeComponent,
 
 
   ],
@@ -74,7 +79,8 @@ import { BookingsComponent } from './Admin/bookings/bookings.component';
     MatNativeDateModule,
     MatSelectModule,
     MatStepperModule,
-    NgxPayPalModule
+    NgxPayPalModule,
+    MatIconModule,
   ],
   providers: [],
   bootstrap: [AppComponent]
