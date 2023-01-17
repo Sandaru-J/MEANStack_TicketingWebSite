@@ -84,9 +84,7 @@ app.use((req,res,next) =>{
             eventID:req.body.eventID,
             eventName:req.body.eventName
         };
-        res.status(201).json({
-            message:'Booking Addeded Successfully'
-        });
+       
         const customer = new Customer({
             name: req.body.name,
             email: req.body.email,
@@ -94,14 +92,17 @@ app.use((req,res,next) =>{
             telephone:req.body.telephone,   
         });
         await customer.save()
-        res.status(201).json({
-            message:'Customer Added Successfully'
-        });
+        // res.status(201).json({
+        //     message:'Customer Added Successfully'
+        // });
+
         await sendMail(data,info => {
             console.log('Message sent');
             console.log(info);this
         });
-        
+         res.status(201).json({
+            message:'Booking Addeded Successfully'
+        });
     }catch(error){
         console.log(error);
         res.status(500).json({message:'Internal Server Error'});

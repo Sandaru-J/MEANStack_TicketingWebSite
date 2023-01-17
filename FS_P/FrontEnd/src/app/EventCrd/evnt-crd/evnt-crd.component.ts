@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { EventService } from 'src/app/Admin/event/event.service';
 import { Event } from 'src/app/Admin/event/event.models';
+import { DatePipe } from '@angular/common';
 
 @Component({
   selector: 'app-evnt-crd',
@@ -21,6 +22,8 @@ export class EvntCrdComponent implements OnInit {
       this.events=response.event;
       console.log(response);
     });
+    //chnage date format
+
   }
 
   url1:string ="../assets/evntCrd1.jpg";

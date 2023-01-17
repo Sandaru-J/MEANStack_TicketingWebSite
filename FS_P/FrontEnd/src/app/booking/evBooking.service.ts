@@ -87,6 +87,7 @@ export class evBookingService{
       })
     }
    getBookingTotal() {
+    console.log(this.BookingTotal);
     return this.BookingTotal;
   }
 

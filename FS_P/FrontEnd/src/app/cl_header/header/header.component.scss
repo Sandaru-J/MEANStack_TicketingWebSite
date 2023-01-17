@@ -95,3 +95,10 @@ col-md-8 text-right{
 .login:hover {
   background: #00e5ff;
 }
+header {
+  position: fixed;
+  top: 0;
+  width: 100%;
+  z-index: 999;
+}
+
