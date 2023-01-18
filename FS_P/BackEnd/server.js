@@ -2,7 +2,7 @@ const { debug } = require('console');
 const http=require('http');
 const { listen } = require('./app');
 const app=require('./app');
-
+const {server} = require('./app');
 //intial server response testing
 // const server=http.createServer((req,res)=>{
 //   res.end('Response Testing 2');
@@ -48,7 +48,7 @@ const onListening =()=> {
 const port=(process.env.PORT || 3000);
 app.set('port',port);
 
-const server=http.createServer(app);
-server.on('error',onError);
-server.on('listening', onListening);
+// const server=http.createServer(app);
+// server.on('error',onError);
+// server.on('listening', onListening);
 server.listen(port);

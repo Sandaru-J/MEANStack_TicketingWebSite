@@ -5,17 +5,28 @@ const path = require('path')
 mongoose.set('strictQuery', false);
 const sendMail = require('../BackEnd/sendMail');
 
+
 const multer= require('multer');
 
 const Event = require('../BackEnd/models/event');
 
 const Booking= require('../BackEnd/models/booking');
 const Customer= require('../BackEnd/models/cutomer');
-
+const { Server } = require('socket.io') 
+const http= require('http')
 const { info } = require('console');
 
 
 const app=express();
+
+const server = http.createServer(app);
+const io = new Server(server,{
+    cors: {
+        origin: '*',
+        },
+});
+
+app.set('io',io);
 
 mongoose.connect("mongodb+srv://SiteUser:nAxKdh83uoIeaWFc@cluster0.h9ytvqs.mongodb.net/?retryWrites=true&w=majority")
 .then(()=>{
@@ -100,6 +111,8 @@ app.use((req,res,next) =>{
             console.log('Message sent');
             console.log(info);this
         });
+        const io = req.app.get('io')
+        io.emit('bookingAdded',data)
          res.status(201).json({
             message:'Booking Addeded Successfully'
         });
@@ -127,6 +140,8 @@ app.post('/api/event',multer({storage:storage}).single('image'),async(req,res,ne
         imagePath:imgUrl
     });
     await event.save()
+    const io = req.app.get('io')
+    io.emit('eventAdded',event)
     res.status(201).json({
         message:'Event Addeded Successfully'
     });
@@ -172,6 +187,8 @@ app.put('/api/event/:id',
     })
     Event.updateOne({_id:req.params.id},event).then(result=>{
         console.log(result);
+        const io = req.app.get('io')
+        io.emit('eventUpdated',event)
         res.status(200).json({message:'Update Successfull!'});
     });
 });
@@ -191,7 +208,7 @@ app.get('/api/event',(req,res,next)=>{
     console.log(param +' From Service')
     if(param==='false'){
         console.log('true')
-        Event.find().sort({'timestamp':-1}).limit(4)
+        Event.find().sort({'date':-1}).limit(4)
         .then(documents=>{
             //console.log(documents);
             res.status(200).json({
@@ -233,6 +250,8 @@ app.get('/api/event/:id',(req,res,next)=>{
 app.delete('/api/event/:id',(req,res,next)=>{
     Event.deleteOne({_id:req.params.id}).then(result=>{
         console.log(result);
+        const io = req.app.get('io')
+        io.emit('eventDeleted',result)
         res.status(200).json({message:'Post Deleted'});
     }) 
 });
@@ -253,6 +272,8 @@ app.get('/api/booking',(req,res,next)=>{
 app.delete('/api/booking/:eventID',(req,res,next)=>{
     Booking.deleteOne({eventID:req.params.eventID}).then(result=>{
         console .log(result);
+        const io = req.app.get('io')
+        io.emit('bookingDeleted',result)
         res.status(200).json({message:'Booking Deleted'});
     }
     )
@@ -272,7 +293,10 @@ app.delete('/api/booking/:eventID',(req,res,next)=>{
 //     }
 // });
 
+server.listen(3000,()=>{
 
+    console.log('Listening on port 3000');
+})
 
 module.exports = app; 
 //nAxKdh83uoIeaWFc
