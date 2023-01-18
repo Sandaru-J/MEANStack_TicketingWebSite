@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { EventService } from 'src/app/Admin/event/event.service';
 import { Event } from 'src/app/Admin/event/event.models';
 import { DatePipe } from '@angular/common';
+import { SocketService } from 'src/app/socket.service';
 
 @Component({
   selector: 'app-evnt-crd',
@@ -11,11 +12,35 @@ import { DatePipe } from '@angular/common';
 export class EvntCrdComponent implements OnInit {
 
   events: Event[] = [];
-  constructor( public evService:EventService) { }
+  constructor( public evService:EventService,private socket:SocketService) { }
 
 
   ngOnInit(): void {
     this.getData();
+    this.socket.listenToServer('eventAdded').subscribe((data)=>{
+      console.log(data);
+
+      this.events = [data, ...this.events]
+      this.events = this.events.splice(0,4);
+
+    });
+
+    this.socket.listenToServer('eventDeleted').subscribe((data)=>{
+      console.log(data);
+      this.getData()
+    })
+
+    this.socket.listenToServer('eventUpdated').subscribe((data)=>{
+      console.log(data);
+      this.events = this.events.map((event)=>{
+        if(event.id === data._id){
+          return data;
+        }
+        else{
+          return event;
+        }
+      })
+    })
   }
   getData() {
     this.evService.getView(false).subscribe((response: any) => {

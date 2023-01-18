@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { orderBookingService } from './orderBookings.service';
 import { BkData } from 'src/app/booking/bookingdata.model';
+import { SocketService } from 'src/app/socket.service';
 
 @Component({
   selector: 'app-bookings',
@@ -10,7 +11,7 @@ import { BkData } from 'src/app/booking/bookingdata.model';
 export class BookingsComponent implements OnInit {
   bookings:BkData[]=[];
 
-  constructor(private orderBookingService:orderBookingService) { }
+  constructor(private orderBookingService:orderBookingService,private socket:SocketService) { }
 
   ngOnInit(): void {
 
@@ -18,6 +19,13 @@ export class BookingsComponent implements OnInit {
       this.bookings=data.booking;
       console.log(this.bookings);
     });
+
+    this.socket.listenToServer('bookingAdded').subscribe((data)=>{
+      console.log(data);
+      this.bookings = [data, ...this.bookings]
+
+    });
+
   }
 
   onDelete(id:string){
