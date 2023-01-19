@@ -90,6 +90,7 @@ export class PaypalComponent implements OnInit {
             console.log('OnCancel', data, actions);
             this.evBookingService.addBooking()
 
+
         },
         onError: err => {
             console.log('OnError', err);
