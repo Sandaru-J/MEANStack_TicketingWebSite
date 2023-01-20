@@ -4,6 +4,7 @@ import { ActivatedRoute, Router } from '@angular/router';
 import { ICreateOrderRequest, IPayPalConfig } from 'ngx-paypal';
 import { evBookingService } from '../booking/evBooking.service';
 import { BkData } from '../booking/bookingdata.model';
+import { RequiredValidator } from '@angular/forms';
 
 
 @Component({
@@ -14,16 +15,17 @@ import { BkData } from '../booking/bookingdata.model';
 export class PaypalComponent implements OnInit {
 
   public payPalConfig?: IPayPalConfig;
-  total: any=1000;
+
   bkData: any;
+  router: any;
+  total: any=265;
 
   constructor(private evBookingService:evBookingService) { }
 
   ngOnInit(): void {
+    //this.total=this.ReqData();
     this.initConfig();
-
   }
-
   // ReqTotal():void{
   //   this.evBookingService.getBookingTotal().subscribe((data)=>{
   //       this.total=this.total/365;
@@ -35,8 +37,10 @@ export class PaypalComponent implements OnInit {
   //req data from booking
   ReqData():void{
     this.evBookingService.getBookingTotal()
-      this.bkData.total=this.total;
-      console.log(this.bkData);
+      this.total=this.bkData.total;
+      this.total=this.total/365;
+      console.log(this.total);
+      return this.bkData.total;
   }
 
   private initConfig(): void {
@@ -84,11 +88,13 @@ export class PaypalComponent implements OnInit {
         onClientAuthorization: (data) => {
             console.log('onClientAuthorization - you should probably inform your server about completed transaction at this point', data);
             //this.evBookingService.sendMail();
+            this.evBookingService.addBooking()
+
 
         },
         onCancel: (data, actions) => {
             console.log('OnCancel', data, actions);
-            this.evBookingService.addBooking()
+
 
 
         },
