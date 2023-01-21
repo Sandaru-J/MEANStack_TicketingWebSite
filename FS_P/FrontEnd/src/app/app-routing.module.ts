@@ -11,6 +11,7 @@ import { PaypalComponent } from './paypal/paypal.component';
 import { CoverBannerComponent } from './coverLanding/cover-banner/cover-banner.component';
 import { HomeComponent } from './Admin/home/home.component';
 import { LoginComponent } from './Admin/login/login.component';
+import { SucessComponent } from './reponses/sucess/sucess.component';
 
 const routes: Routes = [
   // {path:'',component:FooterComponent},
@@ -24,7 +25,8 @@ const routes: Routes = [
   { path: 'booking/:eventId',component:EvDataFormComponent},
   { path: 'paypal', component:PaypalComponent},
   { path: 'admin', component:LoginComponent},
-  { path: 'admin/home', component:HomeComponent}
+  { path: 'admin/home', component:HomeComponent},
+  { path: 'success', component:SucessComponent}
 ];
 
 @NgModule({
