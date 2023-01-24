@@ -38,6 +38,7 @@ import { LoginComponent } from './Admin/login/login.component';
 import { BookingsComponent } from './Admin/bookings/bookings.component';
 import { SucessComponent } from './reponses/sucess/sucess.component';
 import { HomeComponent } from './Admin/home/home.component';
+import { StatsComponent } from './Admin/stats/stats.component';
 
 
 @NgModule({
@@ -59,8 +60,7 @@ import { HomeComponent } from './Admin/home/home.component';
     BookingsComponent,
     SucessComponent,
     HomeComponent,
-
-
+    StatsComponent,
   ],
   imports: [
     BrowserModule,
@@ -81,6 +81,7 @@ import { HomeComponent } from './Admin/home/home.component';
     MatStepperModule,
     NgxPayPalModule,
     MatIconModule,
+
   ],
   providers: [],
   bootstrap: [AppComponent]

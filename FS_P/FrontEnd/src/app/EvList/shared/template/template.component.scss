@@ -73,6 +73,8 @@
 .card {
   transition: all .2s ease-in-out 0s;
   border-radius: 3px;
+  box-shadow: 0 0 10px rgba(196, 8, 8, 0.1);
+  background-color:#d7d7d7;
 
 }
 
@@ -82,7 +84,7 @@
   border-radius: 3px;
   box-sizing: border-box;
   margin-top: 10px;
-  margin-bottom: 30px;
+  margin-bottom: 10px;
 }
 
 .discount {
