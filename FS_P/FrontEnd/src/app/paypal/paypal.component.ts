@@ -18,12 +18,12 @@ export class PaypalComponent implements OnInit {
 
   bkData: any;
   router: any;
-  total: any=265;
+  total: any=5000/365;
 
   constructor(private evBookingService:evBookingService) { }
 
   ngOnInit(): void {
-    //this.total=this.ReqData();
+    this.total=this.ReqData();
     this.initConfig();
   }
   // ReqTotal():void{

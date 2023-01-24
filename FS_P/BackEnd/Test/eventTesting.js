@@ -6,7 +6,7 @@ const eventSchema = require('../models/event');
 
 chai.use(chaiHttp)
 
-suite("Testing Event Adding",()=>{
+suite("Testing Event",()=>{
     test("Testing Event Adding" ,()=>{
         chai.request(server)
             .post('/api/event')
