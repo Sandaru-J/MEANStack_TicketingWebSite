@@ -64,10 +64,10 @@ export class evBookingService{
   //   this.BookingTotal=bookingData.total;
   //  }
    addBooking(){
-    // if(!this.bookingData){
-    //   this.router.navigate(["/"]);
-    //   return;
-    // }
+    if(!this.bookingData){
+      this.router.navigate(["/"]);
+      return;
+    }
     this.http.post<{message:string}>("http://localhost:3000/api/booking",this.bookingData)
     .subscribe((responseData)=>{
       console.log(responseData.message);

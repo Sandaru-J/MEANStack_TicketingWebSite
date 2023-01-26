@@ -18,7 +18,7 @@ export class BookingComponent implements OnInit {
   eventId: string;
   event:Event = null
   eventName:string;
-  Ticket1:Number=null;
+  public Ticket1:any=2000||null;
 
 
   showFormField = false;
@@ -75,7 +75,7 @@ payPalConfig: IPayPalConfig;
 
 
   cal(){
-    this.total=this.BookingForm.value.noOfTicket*1500;
+    this.total=this.BookingForm.value.noOfTicket*this.Ticket1;
   }
 
 
