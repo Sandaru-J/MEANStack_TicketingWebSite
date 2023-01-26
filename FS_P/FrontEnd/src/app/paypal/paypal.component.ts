@@ -15,15 +15,16 @@ import { RequiredValidator } from '@angular/forms';
 export class PaypalComponent implements OnInit {
 
   public payPalConfig?: IPayPalConfig;
-
+  bookingData :BkData | null = null;
   bkData: any;
   router: any;
-  total: any=5000/365;
+  total: any=32;
 
   constructor(private evBookingService:evBookingService) { }
 
   ngOnInit(): void {
-    this.total=this.ReqData();
+    //this.total=this.ReqData();
+
     this.initConfig();
   }
   // ReqTotal():void{
