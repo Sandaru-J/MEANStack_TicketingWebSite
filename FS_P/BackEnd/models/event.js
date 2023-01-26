@@ -24,4 +24,4 @@ const eventSchema = mongoose.Schema({
     imagePath: { type: String, required: true }
 });
 
-module.exports = mongoose.model('Event',eventSchema);
+module.exports = mongoose.model('Event',eventSchema);  

@@ -4,6 +4,7 @@ const mongoose = require('mongoose');
 const path = require('path')
 mongoose.set('strictQuery', false);
 const sendMail = require('../BackEnd/sendMail');
+require('dotenv').config();
 
 
 const multer= require('multer');
@@ -28,7 +29,10 @@ const io = new Server(server,{
 
 app.set('io',io);
 
-mongoose.connect("mongodb+srv://SiteUser:nAxKdh83uoIeaWFc@cluster0.h9ytvqs.mongodb.net/?retryWrites=true&w=majority")
+//mongoose.connect("mongodb+srv://SiteUser:nAxKdh83uoIeaWFc@cluster0.h9ytvqs.mongodb.net/test?retryWrites=true&w=majority")
+mongoose.set('strictQuery', true);
+const MONGO_URL = process.env.NODE_ENV?.trim() !== 'test' ? process.env.MONGO_URL : process.env.MONGO_URL_TEST;
+mongoose.connect(MONGO_URL, { useNewUrlParser: true, useUnifiedTopology: true })
 .then(()=>{
     console.log('Connected to database');
 })
