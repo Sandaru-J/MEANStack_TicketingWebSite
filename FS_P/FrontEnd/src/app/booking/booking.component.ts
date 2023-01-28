@@ -51,6 +51,7 @@ payPalConfig: IPayPalConfig;
       'address':new FormControl(null,{validators:[Validators.required]}),
       'noOfTicket': new FormControl(null,{validators:[Validators.required]}),
       'telephone':new FormControl(null,{validators:[Validators.required]}),
+      //'ticketPrice':new FormControl(null,{validators:[Validators.required]}),
 
     });
 
@@ -91,6 +92,7 @@ payPalConfig: IPayPalConfig;
 
   onClickProceed(){
     if(this.BookingForm.invalid){
+      console.log('doesnt it');
       return
     }else{
       // const bkData:BkData = Object.assign(
@@ -105,6 +107,7 @@ payPalConfig: IPayPalConfig;
 
     this.evBookingService.setFormData(this.BookingForm.value,this.eventId,this.total,this.eventName);
       this.router.navigate(['/paypal'])
+      console.log('does it');
 
     }
   }
