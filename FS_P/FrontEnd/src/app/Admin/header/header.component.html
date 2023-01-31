@@ -1,37 +1,57 @@
 <mat-toolbar color="primary">
-  <div class="row">
-
-    <div class="col-3">
-
-        <a routerLink="/admin/home">Admin</a>
+    <div class="col-sm-2">
+        <a routerLink="/admin/home">Admin&nbsp;</a>
+    </div>
+    <div class="col-sm-2-">
+        <button mat-button [matMenuTriggerFor]="menu"><h2>Events</h2></button>
+    <mat-menu #menu="matMenu">
+      <button mat-menu-item >
+        <a routerLink="/event-list" id="nav">Show Events</a>
+      </button>
+      <button mat-menu-item>
+        <a routerLink="/event-create" id="nav">Add Event</a>    
+    </button>
+    </mat-menu>
+    
+    <button mat-button>
+        <a routerLink="/adbooking"><h2>Bookings</h2></a>
+    </button>
+    
 
     </div>
-    <div class="col-3">
+    <div class="col-md-2">
 
-        <a routerLink="/event-list">Show Events &nbsp;</a>
+    
 
     </div>
-    <div class="col-3">
+    
+    
+     <div class="col-md-2">
+
+    </div>
+    <div class="col-md-2">
+
+    </div>
+    <div class="col-md-2" style="display: flex; justify-content: right;">
+        <a routerLink="/admin">Sign Out</a>
+    </div>
+    <!-- <div class="col-md-3">
+
+        <a routerLink="/event-list">Show Events</a>
+
+    </div>
+    <div class="col-md-3">
 
         <a routerLink="/event-create">Add Event</a>
 
-    </div>
-    <div class="col-3" >
+    </div>  -->
+   
 
-        <a routerLink="/admin/home">Admin</a>
 
-    </div>
-
-  </div>
-
-  <div style="margin-left: 1000px;">
-    <a routerLink="/admin/home">Admin</a>
-
-  </div>
-  
-
-  
+ 
 </mat-toolbar>
-<app-stats></app-stats>
 
 
+
+
+ 

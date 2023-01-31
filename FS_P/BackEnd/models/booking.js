@@ -9,7 +9,7 @@ const eventSchema = mongoose.Schema({
     telephone:{ type:Number,required:true},
     total:{ type:Number,required:true},
     eventID:{ type:String,required:true},
-    eventName:{ type:String,required:true}
+    eventName:{ type:String,required:true},
 
 });
 

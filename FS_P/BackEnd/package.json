@@ -17,7 +17,7 @@
   "scripts": {
     "start": "nodemon app.js",
     "build": "nodemon app.js",
-    "test": "set NODE_ENV=test && mocha --ui tdd --timeout 10000"
+    "test": "set NODE_ENV=test && mocha --ui tdd --timeout 10000 --exit"
   },
   "name": "backend",
   "version": "1.0.0",
