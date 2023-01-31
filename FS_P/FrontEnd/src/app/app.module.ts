@@ -16,6 +16,8 @@ import { MatSelectModule } from '@angular/material/select';
 import { MatStepperModule } from '@angular/material/stepper';
 import { NgxPayPalModule } from 'ngx-paypal';
 import { MatIconModule } from '@angular/material/icon';
+import {MatMenuModule} from '@angular/material/menu';
+
 
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
@@ -81,7 +83,7 @@ import { StatsComponent } from './Admin/stats/stats.component';
     MatStepperModule,
     NgxPayPalModule,
     MatIconModule,
-
+    MatMenuModule,
   ],
   providers: [],
   bootstrap: [AppComponent]

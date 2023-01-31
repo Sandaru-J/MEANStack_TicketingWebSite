@@ -2,6 +2,9 @@
 language: node_js
 node_js:
   - 17
+branches:
+  only:
+    - main
 before_install:
   - cd FS_P
   - cd BackEnd
@@ -10,5 +13,8 @@ install:
 cache:
   directories:
     - node_modules
+env:
+  global:
+    - NODE_ENV=test    
 script:
-  - npm run
+  - npm run test

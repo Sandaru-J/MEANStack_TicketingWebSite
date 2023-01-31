@@ -14,8 +14,8 @@ export class EventService {
 
   constructor(private http:HttpClient,private router:Router){}
 
-  getEvents() {
-    this.http
+  getEvents() {  
+    return this.http
     .get<{message:string,event: any}>(
       'http://localhost:3000/api/event'
       ).pipe(
@@ -37,11 +37,11 @@ export class EventService {
             }
           })
         }))
-    .subscribe((trasformedData)=>{
-      this.events=trasformedData;
-      this.eventUpdated.next([...this.events]);
-      console.log(trasformedData);
-    });
+    // .subscribe((trasformedData)=>{
+    //   this.events=trasformedData;
+    //   this.eventUpdated.next([...this.events]);
+    //   console.log(trasformedData);
+    // });
   }
 
   getEventUpdateListener() {
@@ -140,6 +140,7 @@ export class EventService {
       // event.id=id;
       this.events.push(event);
       this.eventUpdated.next([...this.events]);
+      this.router.navigate(['/event-list'])
       //console.log(event)
     });
   }

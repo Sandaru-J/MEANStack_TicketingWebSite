@@ -9,19 +9,19 @@ const eventSchema = mongoose.Schema({
     category:{ type:String,required:false},
 
     TicketC1:{type:String,required:true},
-    TicketC2:{type:String,required:false},
-    TicketC3:{type:String,required:false},
+    //TicketC2:{type:String,required:false},
+    //TicketC3:{type:String,required:false},
 
     TicketP1:{type:Number,required:true},
-    TicketP2:{type:Number,required:false},
-    TicketP3:{type:Number,required:false},
+    //TicketP2:{type:Number,required:false},
+    //TicketP3:{type:Number,required:false},
 
     TicketQ1:{type:Number,required:true},
-    TicketQ2:{type:Number,required:false},
-    TicketQ3:{type:Number,required:false},
+    //TicketQ2:{type:Number,required:false},
+    //TicketQ3:{type:Number,required:false},
 
     description:{type:String,required:true},
-    imagePath: { type: String, required: true }
+    imagePath: { type: String, required: false }
 });
 
 module.exports = mongoose.model('Event',eventSchema);  

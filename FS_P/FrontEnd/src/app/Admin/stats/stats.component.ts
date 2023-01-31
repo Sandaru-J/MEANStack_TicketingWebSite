@@ -1,7 +1,9 @@
 import { Component, OnInit,ViewChild } from '@angular/core';
 import { Chart } from 'chart.js';
 import { orderBookingService } from '../bookings/orderBookings.service';
-
+import { EventService } from '../event/event.service';
+import { forkJoin, map } from 'rxjs';
+import { HttpClient } from '@angular/common/http';
 @Component({
   selector: 'app-stats',
   templateUrl: './stats.component.html',
@@ -9,26 +11,61 @@ import { orderBookingService } from '../bookings/orderBookings.service';
 })
 export class StatsComponent implements OnInit {
   bookings: any;
+    events: { message: string; booking: {}; }[];
+    customers: any;
+    cL: any;
   
 
-  constructor(private orderBookingService:orderBookingService) { }
+  constructor(private orderBookingService:orderBookingService,private eventService:EventService) { }
   canvas: any;
   ctx: any;
   @ViewChild('mychart') mychart: any;
+
   ngOnInit(): void {
     this.ngAfterViewInit();
-    
-      console.log("this is bookings");
   }
   public bkL:number;
+  public EkL:number;
+
+
+//   getCustoermers(){
+//     .get<{message:string,customers:any}>
+//     ('http://localhost:3000/api/customers')
+//     .subscribe((customerData: { customers: any; })=>{
+//         this.customers=customerData.customers;
+//         this.cL=this.customers.length;
+//         console.log(this.cL);
+//         });
+//   }
   ngAfterViewInit() {
+
     
-    this.orderBookingService.viewBookings().subscribe((bookings)=>{
-        this.bookings=bookings.booking;
-       
-        this.bkL=this.bookings.length;
-     
-    this.canvas = this.mychart.nativeElement;
+    // forkJoin
+    // (
+    //     this.orderBookingService.viewBookings().pipe(map(val => [val])),
+    //     this.eventService.getEvents().pipe(map(val => [val])),
+    //     ).subscribe(([bookings,events]) => {
+    //         this.bookings=bookings; 
+    //         this.events=events;          
+    //         this.bkL=this.bookings.length;
+    //         this.EkL=this.events.length;
+    //         console.log(this.bkL + " " + this.EkL);
+    //     })
+        
+
+    forkJoin
+    (
+        this.orderBookingService.viewBookings(),
+        this.eventService.getEvents(),
+        ).subscribe(([bookings,events]) => {
+            this.bookings=bookings.booking; 
+            this.events=events;          
+            this.bkL=this.bookings.length;
+            this.EkL=this.events.length;
+            console.log(this.bkL + " " + this.EkL);
+
+
+            this.canvas = this.mychart.nativeElement;
     this.ctx = this.canvas.getContext('2d');
     const data = {
         labels: [
@@ -40,7 +77,7 @@ export class StatsComponent implements OnInit {
         ],
         datasets: [{
           label: 'My First Dataset',
-          data: [this.bkL, 18, 10,14,6],
+          data: [this.bkL, this.EkL, 10,14,6],
           backgroundColor: [
             'rgb(255, 99, 132)',
             'rgb(75, 192, 192)',
@@ -55,7 +92,9 @@ export class StatsComponent implements OnInit {
 
         data: data,
     });
-});
+         })
+
 }
+
 
 }
