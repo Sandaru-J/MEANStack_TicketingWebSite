@@ -12,6 +12,8 @@ import { CoverBannerComponent } from './coverLanding/cover-banner/cover-banner.c
 import { HomeComponent } from './Admin/home/home.component';
 import { LoginComponent } from './Admin/login/login.component';
 import { SucessComponent } from './reponses/sucess/sucess.component';
+import { BookingsComponent } from './Admin/bookings/bookings.component';
+import { StatsComponent } from './Admin/stats/stats.component';
 
 const routes: Routes = [
   // {path:'',component:FooterComponent},
@@ -26,7 +28,9 @@ const routes: Routes = [
   { path: 'paypal', component:PaypalComponent},
   { path: 'admin', component:LoginComponent},
   { path: 'admin/home', component:HomeComponent},
-  { path: 'success', component:SucessComponent}
+  { path: 'success', component:SucessComponent},
+  { path: 'adbooking', component:BookingsComponent},
+  { path: 'stats', component:StatsComponent},
 ];
 
 @NgModule({

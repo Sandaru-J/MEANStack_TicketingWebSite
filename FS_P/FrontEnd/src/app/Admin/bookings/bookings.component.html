@@ -1,3 +1,4 @@
+<adm-header></adm-header>
 <div class="container">
   <h2>Booking Data Form</h2>
   <mat-accordion multi="true">
@@ -10,10 +11,12 @@
       </mat-expansion-panel-header>
        <p>{{ booking.eventID }}</p>
        <p>{{ booking.name }}</p>
+       <p>{{ booking.address }}</p>
        <p>{{ booking.email }}</p>
        <p>{{ booking.nic }}</p>
        <p>{{ booking.telephone }}</p>
        <p>{{ booking.total }}.00 LKR</p>
+        
        <mat-action-row>
         <button mat-button color="warn" (click)="onDelete(booking.eventID)">Delete</button>
        </mat-action-row>

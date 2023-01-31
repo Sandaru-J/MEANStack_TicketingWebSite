@@ -16,7 +16,9 @@ events: Event[]=[];
   constructor( public eventService: EventService,private socket:SocketService) { }
 
   ngOnInit() {
-    this.eventService.getEvents();
+    this.eventService.getEvents().subscribe((events: Event[]) => {
+        this.events = events;
+        });
     this.eventSub = this.eventService.getEventUpdateListener()
       .subscribe((events: Event[]) => {
         this.events = events;

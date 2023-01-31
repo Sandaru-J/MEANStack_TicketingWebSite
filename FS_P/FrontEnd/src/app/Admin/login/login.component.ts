@@ -22,7 +22,7 @@ export class LoginComponent implements OnInit {
   onSubmit(){
     if(this.loginForm.valid){
      if(this.loginForm.value.email=="1234@gmail.com" && this.loginForm.value.password=="1234"){
-       this.router.navigate(['/event-create']);
+       this.router.navigate(['/admin/home']);
      }else{
        alert("Login Failed");
        this.loginForm.reset();
