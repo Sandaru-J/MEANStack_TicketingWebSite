@@ -21,4 +21,8 @@ suite("Testing Customer",()=>{
         done()
     })
     });
+
+    suiteTeardown(async()=>{
+        await customer.deleteMany({});
+    })
 })
