@@ -63,4 +63,8 @@ suite("Testing Booking",()=>{
             })
         }
     })
+
+    suiteTeardown(async()=>{
+        await eventSchema.deleteMany({});
+    })
 });

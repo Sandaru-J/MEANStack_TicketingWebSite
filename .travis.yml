@@ -2,6 +2,9 @@
 language: node_js
 node_js:
   - 17
+branches:
+  only:
+    - main
 before_install:
   - cd FS_P
   - cd BackEnd

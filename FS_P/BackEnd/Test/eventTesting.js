@@ -77,4 +77,8 @@ suite("Testing Event",()=>{
 
     })
 
+    suiteTeardown(async()=>{
+        await eventSchema.deleteMany({});
+    })
+
 });
