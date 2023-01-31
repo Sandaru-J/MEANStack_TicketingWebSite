@@ -31,7 +31,7 @@ app.set('io',io);
 
 //mongoose.connect("mongodb+srv://SiteUser:nAxKdh83uoIeaWFc@cluster0.h9ytvqs.mongodb.net/test?retryWrites=true&w=majority")
 mongoose.set('strictQuery', true);
-const MONGO_URL = process.env.NODE_ENV?.trim() !== 'dbSandBox' ? process.env.MONGO_URL : process.env.MONGO_URL_TEST;
+const MONGO_URL = process.env.NODE_ENV?.trim() !== 'test' ? process.env.MONGO_URL : process.env.MONGO_URL_TEST;
 mongoose.connect(MONGO_URL, { useNewUrlParser: true, useUnifiedTopology: true })
 .then(()=>{
     console.log('Connected to database');
@@ -113,7 +113,7 @@ app.use((req,res,next) =>{
 
         await sendMail(data,info => {
             console.log('Message sent');
-            console.log(info);this
+            //console.log(info);this
         });
         const io = req.app.get('io')
         io.emit('bookingAdded',data)
@@ -121,7 +121,7 @@ app.use((req,res,next) =>{
             message:'Booking Addeded Successfully'
         });
     }catch(error){
-        console.log(error);
+        //console.log(error);
         res.status(500).json({message:'Internal Server Error'});
     }
     
@@ -251,7 +251,7 @@ app.get('/api/event',(req,res,next)=>{
 app.get('/api/event/:id',(req,res,next)=>{
     Event.findOne({_id:req.params.id})
         .then(documents=>{
-            console.log(documents);
+            //console.log(documents);
             res.status(200).json({
                 message:'Event fetched Sucessfully',
                 event:documents

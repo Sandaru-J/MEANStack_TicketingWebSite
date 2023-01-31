@@ -26,6 +26,25 @@ suite("Testing Booking",()=>{
             done()
             });
         });
+        test("Testing Booking requird" ,(done)=>{
+            chai.request(server)
+                .post('/api/booking')
+                .send({
+                    name: "",
+                    email: "test@gmail.com",
+                    nic:"Test NIC",
+                    address: "Test Address",
+                    telephone: 777,
+                    eventID: "Test Event",
+                    total: 1000,
+                    eventName: "Test Event Name",
+                })
+                .end((err, res) =>{
+                chai.assert.equal(res.status, 500);
+                
+                done()
+                });
+            });
         test('Testing Booking Fetching',()=>{
             chai.request(server)
             .get('/api/booking')

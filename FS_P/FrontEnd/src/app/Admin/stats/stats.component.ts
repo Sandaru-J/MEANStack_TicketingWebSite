@@ -53,46 +53,46 @@ export class StatsComponent implements OnInit {
     //     })
         
 
-    // forkJoin
-    // (
-    //     this.orderBookingService.viewBookings(),
-    //     this.eventService.getEvents(),
-    //     ).subscribe(([bookings,events]) => {
-    //         this.bookings=bookings.booking; 
-    //         this.events=events;          
-    //         this.bkL=this.bookings.length;
-    //         this.EkL=this.events.length;
-    //         console.log(this.bkL + " " + this.EkL);
+    forkJoin
+    (
+        this.orderBookingService.viewBookings(),
+        this.eventService.getEvents(),
+        ).subscribe(([bookings,events]) => {
+            this.bookings=bookings.booking; 
+            this.events=events;          
+            this.bkL=this.bookings.length;
+            this.EkL=this.events.length;
+            console.log(this.bkL + " " + this.EkL);
 
 
-    //         this.canvas = this.mychart.nativeElement;
-    // this.ctx = this.canvas.getContext('2d');
-    // const data = {
-    //     labels: [
-    //       'Bookings',
-    //       'Events',
-    //       'Customers',
-    //       'Mails',
-    //       'organizers'
-    //     ],
-    //     datasets: [{
-    //       label: 'My First Dataset',
-    //       data: [this.bkL, this.EkL, 10,14,6],
-    //       backgroundColor: [
-    //         'rgb(255, 99, 132)',
-    //         'rgb(75, 192, 192)',
-    //         'rgb(255, 205, 86)',
-    //         'rgb(201, 203, 207)',
-    //         'rgb(54, 162, 235)'
-    //       ]
-    //     }]
-    //   };
-    // new Chart(this.ctx, {
-    //     type: 'polarArea',
+            this.canvas = this.mychart.nativeElement;
+    this.ctx = this.canvas.getContext('2d');
+    const data = {
+        labels: [
+          'Bookings',
+          'Events',
+          'Customers',
+          'Mails',
+          'organizers'
+        ],
+        datasets: [{
+          label: 'My First Dataset',
+          data: [this.bkL, this.EkL, 10,14,6],
+          backgroundColor: [
+            'rgb(255, 99, 132)',
+            'rgb(75, 192, 192)',
+            'rgb(255, 205, 86)',
+            'rgb(201, 203, 207)',
+            'rgb(54, 162, 235)'
+          ]
+        }]
+      };
+    new Chart(this.ctx, {
+        type: 'polarArea',
 
-    //     data: data,
-    // });
-    //      })
+        data: data,
+    });
+         })
 
 }
 

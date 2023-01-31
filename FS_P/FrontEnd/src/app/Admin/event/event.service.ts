@@ -37,11 +37,11 @@ export class EventService {
             }
           })
         }))
-    .subscribe((trasformedData)=>{
-      this.events=trasformedData;
-      this.eventUpdated.next([...this.events]);
-      console.log(trasformedData);
-    });
+    // .subscribe((trasformedData)=>{
+    //   this.events=trasformedData;
+    //   this.eventUpdated.next([...this.events]);
+    //   console.log(trasformedData);
+    // });
   }
 
   getEventUpdateListener() {
