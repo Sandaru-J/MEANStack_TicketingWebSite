@@ -9,7 +9,18 @@ suite("Testing Event",()=>{
     let event
     suiteSetup(async()=>{
         
-         event=await eventSchema.findOne({})
+         event=await eventSchema.create({
+            title: "Test Event new",
+            description: "Test Event Description",
+            date: "2021-05-30T00:00:00.000Z",
+            category: "Test Category",
+            location: "Test Location",
+            capacity: 100,
+            organization: "Test Organization",
+            TicketC1: "Test TicketC1",
+            TicketP1: 1000,
+            TicketQ1: 100,
+         })
 
 }
 )
@@ -37,6 +48,7 @@ suite("Testing Event",()=>{
             chai.request(server)
             .get('/api/event')
             .end((err,res)=>{
+    
                 chai.assert.equal(res.status,200);
                 chai.expect(res.body.event).to.be.an('array');
                 
@@ -46,7 +58,7 @@ suite("Testing Event",()=>{
             chai.request(server)
             .delete('/api/event/'+event._id)
             .end((err,res)=>{
-                console.log(res.body);
+
                 chai.expect(res).to.have.status(200);
                 chai.expect(res.body).to.be.an('object');
             
