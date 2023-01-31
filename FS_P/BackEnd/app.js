@@ -31,7 +31,7 @@ app.set('io',io);
 
 //mongoose.connect("mongodb+srv://SiteUser:nAxKdh83uoIeaWFc@cluster0.h9ytvqs.mongodb.net/test?retryWrites=true&w=majority")
 mongoose.set('strictQuery', true);
-const MONGO_URL = process.env.NODE_ENV?.trim() !== 'test' ? process.env.MONGO_URL : process.env.MONGO_URL_TEST;
+const MONGO_URL = process.env.NODE_ENV?.trim() !== 'dbSandBox' ? process.env.MONGO_URL : process.env.MONGO_URL_TEST;
 mongoose.connect(MONGO_URL, { useNewUrlParser: true, useUnifiedTopology: true })
 .then(()=>{
     console.log('Connected to database');
@@ -128,7 +128,10 @@ app.use((req,res,next) =>{
 });
 app.post('/api/event',multer({storage:storage}).single('image'),async(req,res,next)=>{
     //console.log(req.body);
-    const imgUrl="http://localhost:3000/images/"+req.file.filename;
+    let imgUrl = ''
+    if(req.file){
+        imgUrl="http://localhost:3000/images/"+req.file.filename;
+    }
     console.log(imgUrl)
     const event = new Event({
         title:req.body.title,
@@ -168,7 +171,11 @@ app.post('/api/event',multer({storage:storage}).single('image'),async(req,res,ne
 
 app.put('/api/event/:id',
     multer({storage:storage}).single('image'),(req,res,next)=>{
-     let imagePath=req.body.imagePath;
+        let imagePath = ''
+        if(req.file){
+            imagePath=req.body.imagePath;
+
+        }
      if(req.file){
       // const imgUrl="http://localhost:3000/images/"+req.file.filename;
       // imagePath=imgUrl;
@@ -190,7 +197,7 @@ app.put('/api/event/:id',
         imagePath:imagePath
     })
     Event.updateOne({_id:req.params.id},event).then(result=>{
-        console.log(result);
+
         const io = req.app.get('io')
         io.emit('eventUpdated',event)
         res.status(200).json({message:'Update Successfull!'});
@@ -207,11 +214,20 @@ app.put('/api/event/:id',
 //             });
 //         });  
 // });
+app.get('/api/customers',(req,res,next)=>{
+    Customer.find()
+        .then(documents=>{
+            console.log(documents);
+            res.status(200).json({
+                message:'Customers Fetched Sucessfully',
+                customer:documents
+            });
+        });
+    })
+
 app.get('/api/event',(req,res,next)=>{
     const param = req.query.param;
-    console.log(param +' From Service')
     if(param==='false'){
-        console.log('true')
         Event.find().sort({'date':-1}).limit(4)
         .then(documents=>{
             //console.log(documents);
@@ -223,7 +239,6 @@ app.get('/api/event',(req,res,next)=>{
     }else{      
         Event.find()
         .then(documents=>{
-            //console.log(documents);
             res.status(200).json({
                 message:'Event Added Sucessfully',
                 event:documents
@@ -264,7 +279,7 @@ app.delete('/api/event/:id',(req,res,next)=>{
 app.get('/api/booking',(req,res,next)=>{
     Booking.find()
         .then(documents=>{
-            console.log(documents);
+            //console.log(documents);
             res.status(200).json({
                 message:'Booking Feteched Sucessfully',
                 booking:documents
