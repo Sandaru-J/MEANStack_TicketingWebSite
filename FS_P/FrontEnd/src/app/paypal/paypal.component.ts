@@ -18,7 +18,7 @@ export class PaypalComponent implements OnInit {
   bookingData :BkData | null = null;
   bkData: any;
   router: any;
-  total: any=32;
+  total: any=5000;
 
   constructor(private evBookingService:evBookingService) { }
 

@@ -70,8 +70,8 @@ payPalConfig: IPayPalConfig;
     });
   }
   ticketPrices=[
-    {value: this.Ticket1, viewValue: this.Ticket1},
-    {value: 4000, viewValue: 4000},
+    //{value: this.Ticket1, viewValue: this.Ticket1},
+    {value: 4000, viewValue: 2500},
   ]
 
 

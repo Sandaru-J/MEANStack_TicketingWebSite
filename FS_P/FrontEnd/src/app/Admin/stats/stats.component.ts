@@ -72,12 +72,11 @@ export class StatsComponent implements OnInit {
           'Bookings',
           'Events',
           'Customers',
-          'Mails',
           'organizers'
         ],
         datasets: [{
           label: 'My First Dataset',
-          data: [this.bkL, this.EkL, 10,14,6],
+          data: [this.bkL, this.EkL, 10,6],
           backgroundColor: [
             'rgb(255, 99, 132)',
             'rgb(75, 192, 192)',

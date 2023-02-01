@@ -21,7 +21,6 @@ suite("Testing Event",()=>{
             TicketP1: 1000,
             TicketQ1: 100,
          })
-
 }
 )
     test("Testing Event Adding" ,()=>{
@@ -44,6 +43,26 @@ suite("Testing Event",()=>{
             chai.assert.equal(res.body.message, "Event Addeded Successfully");
             });
         });
+        test("Testing Event Required" ,()=>{
+            chai.request(server)
+                .post('/api/event')
+                .send({
+                title: "",
+                description: "Test Event Description",
+                date: "2021-05-30T00:00:00.000Z",
+                category: "Test Category",
+                location: "Test Location",
+                capacity: 100,
+                organization: "Test Organization",
+                TicketC1: "Test TicketC1",
+                TicketP1: 1000,
+                TicketQ1: 100,
+                })
+                .end((err, res) =>{
+                chai.assert.equal(res.status, 201);
+                chai.assert.equal(res.body.message, "Event Addeded Successfully");
+                });
+            });
         test('Testing Event Fetching',()=>{
             chai.request(server)
             .get('/api/event')

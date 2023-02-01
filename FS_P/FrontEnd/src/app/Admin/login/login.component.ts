@@ -21,7 +21,7 @@ export class LoginComponent implements OnInit {
   get f() { return this.loginForm.controls; }
   onSubmit(){
     if(this.loginForm.valid){
-     if(this.loginForm.value.email=="1234@gmail.com" && this.loginForm.value.password=="1234"){
+     if(this.loginForm.value.email=="admin1234@gmail.com" && this.loginForm.value.password=="admin1234"){
        this.router.navigate(['/admin/home']);
      }else{
        alert("Login Failed");

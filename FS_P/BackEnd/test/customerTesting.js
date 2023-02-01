@@ -21,6 +21,20 @@ suite("Testing Customer",()=>{
         done()
     })
     });
+    test('Testing Customer Required',(done)=>{
+        chai.request(server)
+        .post('/api/booking')
+        .send({
+            name: "",
+            email: "testCusmail@gmail.com",
+            nic:"Test NIC",
+            telephone: 777
+    })
+    .end((err,res)=>{
+        chai.assert.equal(res.status,500);
+        done()
+    })
+    });
 
     suiteTeardown(async()=>{
         await customer.deleteMany({});
